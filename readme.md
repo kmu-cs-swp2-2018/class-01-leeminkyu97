@@ -1,7 +1,7 @@
-# Student ID: 20163136
+# **Student ID: 20163136**
 ---
-# Name: Minkyu Lee
+# **Name: Minkyu Lee**
 ---
-### GitHub ID: leeminkyu97
+### **GitHub ID: leeminkyu97**
 ---
-#### email: [bomblmk97@naver.com](bomblmk97@naver.com)
+### **email: [bomblmk97@naver.com](bomblmk97@naver.com)**
