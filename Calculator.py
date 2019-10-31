@@ -45,7 +45,7 @@ class Calculator(QWidget):
             for btnText in buttonPad['buttons']:
                 button = Button(btnText, self.buttonClicked)
                 buttonPad['layout'].addWidget(button, r, c)
-                c+=1
+                c += 1
                 if c >= buttonPad['columns']:
                     c = 0
                     r += 1
