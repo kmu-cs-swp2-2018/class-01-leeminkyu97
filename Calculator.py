@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import QLineEdit, QToolButton
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
+from keypad import *
 
 
 class Button(QToolButton):
-    def __init__(self,text,callback):
+    def __init__(self, text, callback):
         super().__init__()
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.setText(text)
@@ -15,12 +16,12 @@ class Button(QToolButton):
     def sizeHint(self):
         size = super(Button, self).sizeHint()
         size.setHeight(size.height()+20)
-        size.setWidth(max(size.width(),size.height()))
+        size.setWidth(max(size.width(), size.height()))
         return size
 
 
 class Calculator(QWidget):
-    def __init__(self,parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
 
         # Display Window
@@ -29,28 +30,25 @@ class Calculator(QWidget):
         self.display.setAlignment(Qt.AlignRight)
         self.display.setMaxLength(15)
 
-        # Digit Buttons
-        self.digitButton = [x for x in range(0, 10)]
+        # Button Creation and Placement
+        numLayout = QGridLayout()
+        opLayout = QGridLayout()
 
-        for i in range(0, 10):
-            self.digitButton[i] = Button('%d'%i, self.buttonClicked)
+        buttonGroups = {
+            'num': {'buttons':numPadList, 'layout': numLayout, 'columns': 3},
+            'op': {'buttons': operatorList, 'layout': opLayout, 'columns': 2}
+        }
 
-        # . and = Buttons
-        self.decButton = Button('.',self.buttonClicked)
-        self.eqButton = Button('=',self.buttonClicked)
-
-        # Operator Buttons
-        self.mulButton = Button('*',self.buttonClicked)
-        self.divButton = Button('/',self.buttonClicked)
-        self.addButton = Button('+',self.buttonClicked)
-        self.subButton = Button('-',self.buttonClicked)
-
-        # Parentheses Buttons
-        self.lparButton = Button('(',self.buttonClicked)
-        self.rparButton = Button(')',self.buttonClicked)
-
-        # Clear Button
-        self.clearButton = Button('C',self.buttonClicked)
+        for label in buttonGroups.keys():
+            r, c = 0, 0
+            buttonPad = buttonGroups[label]
+            for btnText in buttonPad['buttons']:
+                button = Button(btnText, self.buttonClicked)
+                buttonPad['layout'].addWidget(button, r, c)
+                c+=1
+                if c >= buttonPad['columns']:
+                    c = 0
+                    r += 1
 
         # Layout
         mainLayout = QGridLayout()
@@ -58,28 +56,7 @@ class Calculator(QWidget):
 
         mainLayout.addWidget(self.display, 0, 0, 1, 2)
 
-        numLayout = QGridLayout()
-
-        numLayout.addWidget(self.digitButton[0], 3, 0)
-        for i in range(1, 10):
-            numLayout.addWidget(self.digitButton[i], (9-i)/3, 2-((9-i) % 3))
-
-        numLayout.addWidget(self.decButton, 3, 1)
-        numLayout.addWidget(self.eqButton, 3, 2)
-
         mainLayout.addLayout(numLayout, 1, 0)
-
-        opLayout = QGridLayout()
-
-        opLayout.addWidget(self.mulButton, 0, 0)
-        opLayout.addWidget(self.divButton, 0, 1)
-        opLayout.addWidget(self.addButton, 1, 0)
-        opLayout.addWidget(self.subButton, 1, 1)
-
-        opLayout.addWidget(self.lparButton, 2, 0)
-        opLayout.addWidget(self.rparButton, 2, 1)
-
-        opLayout.addWidget(self.clearButton, 3, 0)
 
         mainLayout.addLayout(opLayout, 1, 1)
 
@@ -107,5 +84,3 @@ if __name__ == '__main__':
     calc = Calculator()
     calc.show()
     sys.exit(app.exec_())
-
-
