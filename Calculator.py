@@ -69,7 +69,10 @@ class Calculator(QWidget):
         key = button.text()
 
         if key == '=':
-            result = str(eval(self.display.text()))
+            try:
+                result = str(eval(self.display.text()))
+            except:
+                result = 'Error'
             self.display.setText(result)
         elif key == 'C':
             self.display.setText('')
