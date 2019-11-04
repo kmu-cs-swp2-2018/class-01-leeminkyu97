@@ -71,8 +71,18 @@ class Calculator(QWidget):
         if key == '=':
             try:
                 result = str(eval(self.display.text()))
+            except ZeroDivisionError:  # divided by 0
+                result = 'ZeroDivisionErr'
+            except IndexError:  # over/under indexing
+                result = 'IndexErr'
+            except OverflowError:  # overflow (could be memory err)
+                result = 'OverflowErr'
+            except TypeError:  # wrong arg (data type)
+                result = 'TypeErr'
+            except ValueError:  # wrong arg (ex. big number)
+                result = 'ValueErr'
             except:
-                result = 'Error'
+                result = 'etc Err'
             self.display.setText(result)
         elif key == 'C':
             self.display.setText('')
