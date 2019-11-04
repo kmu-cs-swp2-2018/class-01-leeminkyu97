@@ -102,8 +102,16 @@ class Calculator(QWidget):
             self.display.setText(result)
         elif key == 'C':
             self.display.setText('')
-        elif key == 'pi':
-            self.display.setText('3.141592')
+        elif key in constantList:
+            if key == 'pi':
+                key = '3.141592'
+            elif key == '빛의 이동 속도 (m/s)':
+                key = '3E+8'
+            elif key == '소리의 이동 속도 (m/s)':
+                key = '340'
+            elif key == '태양과의 평균 거리 (km)':
+                key = '1.5E+8'
+            self.display.setText(self.display.text() + key)
         else:
             self.display.setText(self.display.text() + key)
         self.repaint()
