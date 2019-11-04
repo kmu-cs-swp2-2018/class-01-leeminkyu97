@@ -33,10 +33,14 @@ class Calculator(QWidget):
         # Button Creation and Placement
         numLayout = QGridLayout()
         opLayout = QGridLayout()
+        constLayout = QGridLayout()
+        funcLayout = QGridLayout()
 
         buttonGroups = {
             'num': {'buttons':numPadList, 'layout': numLayout, 'columns': 3},
-            'op': {'buttons': operatorList, 'layout': opLayout, 'columns': 2}
+            'op': {'buttons': operatorList, 'layout': opLayout, 'columns': 2},
+            'constants': {'buttons': constantList, 'layout': constLayout, 'columns': 1},
+            'functions': {'buttons': functionList, 'layout': funcLayout, 'columns': 1}
         }
 
         for label in buttonGroups.keys():
@@ -60,6 +64,10 @@ class Calculator(QWidget):
 
         mainLayout.addLayout(opLayout, 1, 1)
 
+        mainLayout.addLayout(constLayout, 2, 0)
+
+        mainLayout.addLayout(funcLayout, 2, 1)
+
         self.setLayout(mainLayout)
 
         self.setWindowTitle("My Calculator")
@@ -67,6 +75,12 @@ class Calculator(QWidget):
     def buttonClicked(self):
         button = self.sender()
         key = button.text()
+
+        errorList = ['ZeroDivisionErr', 'IndexErr', 'OverFlowErr',
+                     'TypeErr', 'ValueErr', 'SyntaxErr', 'etcErr']
+
+        if self.display.text() in errorList:
+            self.display.setText('')  # after error
 
         if key == '=':
             try:
@@ -81,8 +95,10 @@ class Calculator(QWidget):
                 result = 'TypeErr'
             except ValueError:  # wrong arg (ex. big number)
                 result = 'ValueErr'
+            except SyntaxError:
+                result = 'SyntaxErr'
             except:
-                result = 'etc Err'
+                result = 'etcErr'
             self.display.setText(result)
         elif key == 'C':
             self.display.setText('')
