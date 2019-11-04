@@ -102,8 +102,11 @@ class Calculator(QWidget):
             self.display.setText(result)
         elif key == 'C':
             self.display.setText('')
+        elif key == 'pi':
+            self.display.setText('3.141592')
         else:
             self.display.setText(self.display.text() + key)
+        self.repaint()
 
 
 if __name__ == '__main__':
