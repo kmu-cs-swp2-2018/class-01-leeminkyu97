@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QLineEdit, QToolButton
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 from keypad import *
+from calcFunctions import *
 
 
 class Button(QToolButton):
@@ -112,6 +113,18 @@ class Calculator(QWidget):
             elif key == '태양과의 평균 거리 (km)':
                 key = '1.5E+8'
             self.display.setText(self.display.text() + key)
+        elif key in functionList[0]:
+            n = self.display.text()
+            value = factorial(n)
+            self.display.setText(str(value))
+        elif key in functionList[1]:
+            n = self.display.text()
+            value = toBinary(n)
+            self.display.setText(str(value))
+        elif key in functionList[2]:
+            n = self.display.text()
+            value = toDec(n)
+            self.display.setText(str(value))
         else:
             self.display.setText(self.display.text() + key)
         self.repaint()
