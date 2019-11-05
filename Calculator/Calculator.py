@@ -96,7 +96,7 @@ class Calculator(QWidget):
                 result = str(eval(self.display.text()))
             except ZeroDivisionError:  # divided by 0
                 result = 'ZeroDivisionErr'
-            except IndexError:  # over/under indexing
+            except IndexError:  # over indexing
                 result = 'IndexErr'
             except OverflowError:  # overflow (could be memory err)
                 result = 'OverflowErr'
