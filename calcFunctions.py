@@ -1,28 +1,28 @@
-from math import factorial as fact
-
 def factorial(numStr):
-    try:
-        n = int(numStr)
-        r = str(fact(n))
-    except:
-        r = 'Error!'
-    return r
+    num = int(numStr)
+    answer = 1
+    for i in range(1, num+1):
+        answer *= i
+    return answer
 
-def decToBin(numStr):
-    try:
-        n = int(numStr)
-        r = bin(n)[2:]
-    except:
-        r = 'Error!'
-    return r
 
-def binToDec(numStr):
-    try:
-        n = int(numStr, 2)
-        r = str(n)
-    except:
-        r = 'Error!'
-    return r
+def toBinary(numStr):
+    num = int(numStr)
+    answer = ""
+    while num > 0:
+        r = num % 2
+        answer += str(r)
+        num = num // 2
+    answer = answer[::-1]
+    return answer
 
-def decToRoman(numStr):
-    return 'dec -> Roman'
+
+def toDec(numStr):
+    numStr = str(numStr)
+    answer = 0
+    position = 1
+    for i in range(len(numStr)):
+        if numStr[-1-i] == '1':
+            answer += position
+        position *= 2
+    return answer
