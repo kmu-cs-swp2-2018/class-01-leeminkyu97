@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import QLineEdit, QToolButton
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
-from Calculator.keypad import *
-
+from keypad import *
+from calcFunctions import *
 
 class Button(QToolButton):
     def __init__(self, text, callback):
