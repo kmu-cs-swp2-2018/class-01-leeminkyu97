@@ -37,7 +37,7 @@ class Calculator(QWidget):
         funcLayout = QGridLayout()
 
         buttonGroups = {
-            'num': {'buttons':numPadList, 'layout': numLayout, 'columns': 3},
+            'num': {'buttons': numPadList, 'layout': numLayout, 'columns': 3},
             'op': {'buttons': operatorList, 'layout': opLayout, 'columns': 2},
             'constants': {'buttons': constantList, 'layout': constLayout, 'columns': 1},
             'functions': {'buttons': functionLabels, 'layout': funcLayout, 'columns': 1}
