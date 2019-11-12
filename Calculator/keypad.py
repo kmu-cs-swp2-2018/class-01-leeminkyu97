@@ -21,14 +21,16 @@ constantList = [
 
 functionLabels = [
     'factorial (!)',
-    '-> binary',
+    'dec -> binary',
     'binary -> dec',
-    '-> roman',
+    'dec -> roman',
+    'roman -> dec',
 ]
 
 functions = [
     'factorial',
-    'toBinary',
-    'toDec',
-    '-> roman',
+    'DectoBinary',
+    'BintoDec',
+    'DectoRoman',
+    'RomantoDec',
 ]
