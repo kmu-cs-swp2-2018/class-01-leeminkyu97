@@ -12,7 +12,7 @@ class mainUI(QWidget):
         self.gameWindow = QTextEdit()
         self.gameWindow.setReadOnly(True)
 
-        # place
+        # place Window
         self.placeWindow = QLineEdit()
         self.placeWindow.setFixedWidth(100)
         self.placeWindow.setReadOnly(True)
@@ -26,35 +26,35 @@ class mainUI(QWidget):
         leftLayout = QGridLayout()
         leftLayout.addWidget(self.gameWindow, 0, 0)
 
-        # enemy statement
+        # enemy Window
         self.enemyWindow = QTextEdit()
         self.enemyWindow.setReadOnly(True)
         self.enemyWindow.setFixedHeight(80)
         self.enemyWindow.setFontPointSize(8)
 
-        # user statement
-        self.userWindow = QTextEdit()
-        self.userWindow.setReadOnly(True)
-        self.userWindow.setFixedHeight(80)
-        self.userWindow.setFontPointSize(8)
+        # player Window
+        self.playerWindow = QTextEdit()
+        self.playerWindow.setReadOnly(True)
+        self.playerWindow.setFixedHeight(80)
+        self.playerWindow.setFontPointSize(8)
 
         # button
         self.button_1 = QToolButton()
-        self.button_1.setFixedSize(70, 70)
+        self.button_1.setFixedSize(80, 80)
 
         self.button_2 = QToolButton()
-        self.button_2.setFixedSize(70, 70)
+        self.button_2.setFixedSize(80, 80)
 
         self.button_3 = QToolButton()
-        self.button_3.setFixedSize(70, 70)
+        self.button_3.setFixedSize(80, 80)
 
         self.button_4 = QToolButton()
-        self.button_4.setFixedSize(70, 70)
+        self.button_4.setFixedSize(80, 80)
 
         # right Layout
         rightLayout = QGridLayout()
         rightLayout.addWidget(self.enemyWindow, 0, 0, 1, 2)
-        rightLayout.addWidget(self.userWindow, 1, 0, 1, 2)
+        rightLayout.addWidget(self.playerWindow, 1, 0, 1, 2)
         rightLayout.addWidget(self.button_1, 2, 0)
         rightLayout.addWidget(self.button_2, 2, 1)
         rightLayout.addWidget(self.button_3, 3, 0)
@@ -80,7 +80,7 @@ class mainUI(QWidget):
         self.button_3.setText(text_3)
         self.button_4.setText(text_4)
 
-    # main view
+    # 메인 화면
     def mainView(self):
         self.gameWindow.setFontPointSize(15)
         self.gameWindow.setText("title")
@@ -88,8 +88,15 @@ class mainUI(QWidget):
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.placeWindow.setText("")
         self.enemyWindow.setText("")
-        self.userWindow.setText("")
-        self.button_text("새 게임", "불러오기", "크레딧", "종료")
+        self.playerWindow.setText("")
+        self.button_text("New Game", "Load", "Credit", "Exit")
+
+    # 크레딧
+    def credit(self):
+        self.gameWindow.setText("이민규, 송희범")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+
+        self.button_text("main")
 
 
 if __name__ == '__main__':
