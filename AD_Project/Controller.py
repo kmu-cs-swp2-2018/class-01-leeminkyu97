@@ -9,7 +9,10 @@ from PyQt5.QtWidgets import QApplication, QWidget
 class controller:
     def __init__(self):
         self.UI = mainUI()
+        self.UI.button_1.clicked.connect(self.button1_event)
+        self.UI.button_2.clicked.connect(self.button2_event)
         self.UI.button_3.clicked.connect(self.button3_event)
+        self.UI.button_4.clicked.connect(self.button4_event)
 
     # game start
     def start(self, app):
@@ -20,6 +23,13 @@ class controller:
     # button_1 event
     def button1_event(self):
         b1 = self.UI.button_1
+
+        if b1.text() == "Main":
+            self.UI.mainView()
+        elif b1.text() == "New Game":
+            self.UI.text_load("Prolog.txt")
+        elif b1.text() == "Next":
+            self.UI.text_next()
 
     # button_2 event
     def button2_event(self):

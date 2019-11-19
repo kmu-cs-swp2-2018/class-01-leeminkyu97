@@ -96,7 +96,29 @@ class mainUI(QWidget):
         self.gameWindow.setText("이민규, 송희범")
         self.gameWindow.setAlignment(Qt.AlignCenter)
 
-        self.button_text("main")
+        self.button_text("Main")
+
+    # 텍스트 파일 불러오기
+    def text_load(self, filename):
+        f = open(filename, "r")
+        self.current_text = filename
+        self.lines = f.readlines()
+        f.close()
+        self.placeWindow.setText(filename[:-4])
+        self.enemyWindow.clear()
+        self.gameWindow.clear()
+        self.button_text("Next", "Skip")
+        self.gameWindow.append(self.lines[0])
+        self.cnt_textline = 1
+
+    # 다음 문장
+    def text_next(self):
+        self.gameWindow.append(self.lines[self.cnt_textline])
+        self.cnt_textline += 1
+        if self.cnt_textline == len(self.lines):
+            self.button_text("Exit")
+
+
 
 
 if __name__ == '__main__':
