@@ -6,7 +6,7 @@ def factorial(numStr):
     return answer
 
 
-def DectoBinary(numStr):
+def toBinary(numStr):
     num = int(numStr)
     answer = ""
     while num > 0:
@@ -17,7 +17,7 @@ def DectoBinary(numStr):
     return answer
 
 
-def RomantoDec(numStr):
+def toDec(numStr):
     numStr = str(numStr)
     answer = 0
     position = 1
@@ -28,7 +28,7 @@ def RomantoDec(numStr):
     return answer
 
 
-def decToRoman(numStr):
+def toRoman(numStr):
     romanList = [('D', 500), ('CD', 400), ('C', 100), ('L', 50),
                  ('XL', 40), ('X', 10), ('V', 5), ('IV', 4), ('I', 1)]
     num = int(numStr)

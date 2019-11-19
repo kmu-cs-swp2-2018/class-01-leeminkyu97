@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QLayout, QGridLayout
 from keypad import *
 from calcFunctions import *
 
+
 class Button(QToolButton):
     def __init__(self, text, callback):
         super().__init__()
