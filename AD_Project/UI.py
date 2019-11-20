@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QLayout, QGridLayout, QVBoxLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton
 
 
-class mainUI(QWidget):
+class MainUI(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -74,7 +74,7 @@ class mainUI(QWidget):
         self.setGeometry(300, 300, 1500, 1000)
 
     # 버튼 문자 변경
-    def text_button(self, text_1="", text_2="", text_3="", text_4=""):
+    def button_setText(self, text_1="", text_2="", text_3="", text_4=""):
         self.button_1.setText(text_1)
         self.button_2.setText(text_2)
         self.button_3.setText(text_3)
@@ -89,7 +89,7 @@ class mainUI(QWidget):
         self.placeWindow.setText(filename[:-4])
         self.enemyWindow.clear()
         self.gameWindow.clear()
-        self.text_button("Next", "Skip")
+        self.button_setText("Next", "Skip")
         self.gameWindow.append(self.lines[0])
         self.cnt_textline = 1
 
@@ -98,7 +98,12 @@ class mainUI(QWidget):
         self.gameWindow.append(self.lines[self.cnt_textline])
         self.cnt_textline += 1
         if self.cnt_textline == len(self.lines):
-            self.text_button("Continue")
+            self.button_setText("Continue")
+
+    # 텍스트 종료
+    def text_end(self):
+        if self.current_text == "Prolog.txt":
+            self.screen_class()
 
     # 메인 화면
     def screen_main(self):
@@ -106,17 +111,26 @@ class mainUI(QWidget):
         self.gameWindow.setText("title")
         self.gameWindow.setFontPointSize(10)
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.placeWindow.setText("Main Screen")
+        self.placeWindow.setText("메인 화면")
         self.enemyWindow.setText("")
         self.playerWindow.setText("")
-        self.text_button("New Game", "Load", "Credit", "Exit")
+        self.button_setText("New Game", "Load", "Credit", "Exit")
 
     # 크레딧
     def screen_credit(self):
-        self.gameWindow.setText("이민규, 송희범")
+        self.placeWindow.setText("제작자")
+        self.gameWindow.setText("20163136이민규\n20180000송희범")  # 가운데정렬 문제해결 요함
         self.gameWindow.setAlignment(Qt.AlignCenter)
 
-        self.text_button("Main")
+        self.button_setText("Main")
+
+    # 직업 선택
+    def screen_class(self):
+        self.placeWindow.setText("직업 선택")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.gameWindow.setText("플레이어의 직업을 선택해주세요")
+        self.button_setText("직업1", "직업2", "직업3")
+
 
 
 
@@ -125,6 +139,6 @@ class mainUI(QWidget):
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
-    game = mainUI()
+    game = MainUI()
     game.show()
     sys.exit(app.exec_())
