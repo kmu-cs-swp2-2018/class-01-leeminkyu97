@@ -74,29 +74,11 @@ class mainUI(QWidget):
         self.setGeometry(300, 300, 1500, 1000)
 
     # 버튼 문자 변경
-    def button_text(self, text_1="", text_2="", text_3="", text_4=""):
+    def text_button(self, text_1="", text_2="", text_3="", text_4=""):
         self.button_1.setText(text_1)
         self.button_2.setText(text_2)
         self.button_3.setText(text_3)
         self.button_4.setText(text_4)
-
-    # 메인 화면
-    def mainView(self):
-        self.gameWindow.setFontPointSize(15)
-        self.gameWindow.setText("title")
-        self.gameWindow.setFontPointSize(10)
-        self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.placeWindow.setText("")
-        self.enemyWindow.setText("")
-        self.playerWindow.setText("")
-        self.button_text("New Game", "Load", "Credit", "Exit")
-
-    # 크레딧
-    def credit(self):
-        self.gameWindow.setText("이민규, 송희범")
-        self.gameWindow.setAlignment(Qt.AlignCenter)
-
-        self.button_text("Main")
 
     # 텍스트 파일 불러오기
     def text_load(self, filename):
@@ -107,7 +89,7 @@ class mainUI(QWidget):
         self.placeWindow.setText(filename[:-4])
         self.enemyWindow.clear()
         self.gameWindow.clear()
-        self.button_text("Next", "Skip")
+        self.text_button("Next", "Skip")
         self.gameWindow.append(self.lines[0])
         self.cnt_textline = 1
 
@@ -116,7 +98,26 @@ class mainUI(QWidget):
         self.gameWindow.append(self.lines[self.cnt_textline])
         self.cnt_textline += 1
         if self.cnt_textline == len(self.lines):
-            self.button_text("Exit")
+            self.text_button("Continue")
+
+    # 메인 화면
+    def screen_main(self):
+        self.gameWindow.setFontPointSize(15)
+        self.gameWindow.setText("title")
+        self.gameWindow.setFontPointSize(10)
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.placeWindow.setText("Main Screen")
+        self.enemyWindow.setText("")
+        self.playerWindow.setText("")
+        self.text_button("New Game", "Load", "Credit", "Exit")
+
+    # 크레딧
+    def screen_credit(self):
+        self.gameWindow.setText("이민규, 송희범")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+
+        self.text_button("Main")
+
 
 
 

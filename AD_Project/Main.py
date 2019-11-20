@@ -1,10 +1,10 @@
-from Controller import controller
+from Controller import Controller
 
 from PyQt5.QtWidgets import QApplication, QWidget
 
 
 def gameMain(app):
-    game = controller()
+    game = Controller()
     game.start(app)
 
 
