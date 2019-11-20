@@ -100,7 +100,7 @@ class mainUI(QWidget):
 
     # 텍스트 파일 불러오기
     def text_load(self, filename):
-        f = open(filename, "r")
+        f = open(filename, "r", encoding="utf-8")
         self.current_text = filename
         self.lines = f.readlines()
         f.close()
