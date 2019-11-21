@@ -95,7 +95,7 @@ class testUI(QWidget):
         self.setGeometry(500,500,1000,2000)
 
         self.mapWindow.setFontPointSize(15)
-        self.mapWindow.setText("■■■■■□■■■\n■■■■■□■■■\n■□□☆□□■■■\n■■■■□■■■■\n■■■■■■■■■")
+        self.mapWindow.setText("■■■■■□□■■\n■■■■■□■■■\n■□□□☆□■■■\n■■■■□■■■■\n■■■□□■■■■")
 
 
 
