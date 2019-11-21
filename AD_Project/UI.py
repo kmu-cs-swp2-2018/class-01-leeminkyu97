@@ -10,7 +10,7 @@ class MainUI(QWidget):
 
         # place Window
         self.placeWindow = QLineEdit()
-        self.placeWindow.setFixedWidth(100)
+        self.placeWindow.setFixedWidth(120)
         self.placeWindow.setReadOnly(True)
 
         # place Layout
@@ -21,72 +21,85 @@ class MainUI(QWidget):
         # game Window
         self.gameWindow = QTextEdit()
         self.gameWindow.setReadOnly(True)
+        self.gameWindow.setFixedHeight(400)
 
         # map Window
         self.mapWindow = QTextEdit()
         self.mapWindow.setReadOnly(True)
+        self.mapWindow.setFixedHeight(200)
 
         # enemy Window
         self.enemyWindow = QTextEdit()
         self.enemyWindow.setReadOnly(True)
-        self.enemyWindow.setFixedHeight(80)
+        self.enemyWindow.setFixedHeight(90)
         self.enemyWindow.setFontPointSize(8)
 
         # player Window
         self.playerWindow = QTextEdit()
         self.playerWindow.setReadOnly(True)
-        self.playerWindow.setFixedHeight(80)
+        self.playerWindow.setFixedHeight(90)
         self.playerWindow.setFontPointSize(8)
 
         # upper Layout
         upperLayout = QGridLayout()
         upperLayout.addWidget(self.gameWindow, 0, 0)
-        upperLayout.addWidget(self.mapWindow,0,1)
+
 
         # down Layout
         downLayout = QGridLayout()
-        downLayout.addWidget(self.enemyWindow,1 ,0)
-        downLayout.addWidget(self.playerWindow,1 ,1)
+        downLayout.addWidget(self.mapWindow, 0, 0)
+        downLayout.addWidget(self.enemyWindow, 1, 0)
+        downLayout.addWidget(self.playerWindow, 2, 0)
+
 
         # button
-        self.button_1 = QToolButton()
-        self.button_1.setFixedSize(80, 80)
-        self.button_2 = QToolButton()
-        self.button_2.setFixedSize(80, 80)
-        self.button_3 = QToolButton()
-        self.button_3.setFixedSize(80, 80)
-        self.button_4 = QToolButton()
-        self.button_4.setFixedSize(80, 80)
-        self.button_5 = QToolButton()
-        self.button_5.setFixedSize(80, 80)
-        self.button_6 = QToolButton()
-        self.button_6.setFixedSize(80, 80)
-        self.button_7 = QToolButton()
-        self.button_7.setFixedSize(80, 80)
-        self.button_8 = QToolButton()
-        self.button_8.setFixedSize(80, 80)
-        self.button_9 = QToolButton()
-        self.button_9.setFixedSize(80, 80)
+        self.moveButton_1 = QToolButton()
+        self.moveButton_1.setFixedSize(50, 80)
+        self.moveButton_1.setText("▲")
+        self.moveButton_2 = QToolButton()
+        self.moveButton_2.setFixedSize(80, 50)
+        self.moveButton_2.setText("◀")
+        self.moveButton_3 = QToolButton()
+        self.moveButton_3.setFixedSize(80, 50)
+        self.moveButton_3.setText("▶")
+        self.moveButton_4 = QToolButton()
+        self.moveButton_4.setFixedSize(50, 80)
+        self.moveButton_4.setText("▼")
 
-        # button Layout
-        buttonLayout = QGridLayout()
-        buttonLayout.addWidget(self.button_1, 0, 0)
-        buttonLayout.addWidget(self.button_2, 0, 1)
-        buttonLayout.addWidget(self.button_3, 0, 2)
-        buttonLayout.addWidget(self.button_4, 1, 0)
-        buttonLayout.addWidget(self.button_5, 1, 1)
-        buttonLayout.addWidget(self.button_6, 1, 2)
-        buttonLayout.addWidget(self.button_7, 2, 0)
-        buttonLayout.addWidget(self.button_8, 2, 1)
-        buttonLayout.addWidget(self.button_9, 2, 2)
+
+        self.actionButton_1 = QToolButton()
+        self.actionButton_1.setFixedSize(100, 100)
+        self.actionButton_2 = QToolButton()
+        self.actionButton_2.setFixedSize(100, 100)
+        self.actionButton_3 = QToolButton()
+        self.actionButton_3.setFixedSize(100, 100)
+        self.actionButton_4 = QToolButton()
+        self.actionButton_4.setFixedSize(100, 100)
+
+
+        # move button Layout
+        moveButtonLayout = QGridLayout()
+        moveButtonLayout.addWidget(self.moveButton_1, 0, 1)
+        moveButtonLayout.addWidget(self.moveButton_2, 1, 0)
+        moveButtonLayout.addWidget(self.moveButton_3, 1, 2)
+        moveButtonLayout.addWidget(self.moveButton_4, 2, 1)
+
+
+        # action button Layout
+        actionButtonLayout = QGridLayout()
+        actionButtonLayout.addWidget(self.actionButton_1, 0, 0)
+        actionButtonLayout.addWidget(self.actionButton_2, 0, 1)
+        actionButtonLayout.addWidget(self.actionButton_3, 1, 0)
+        actionButtonLayout.addWidget(self.actionButton_4, 1, 1)
 
         # main Layout
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
         mainLayout.addLayout(placeLayout, 0, 0)
         mainLayout.addLayout(upperLayout,1,0)
-        mainLayout.addLayout(downLayout,2,0)
-        mainLayout.addLayout(buttonLayout,3,0)
+        mainLayout.addLayout(downLayout,1,1)
+        mainLayout.addLayout(moveButtonLayout,2,0)
+        mainLayout.addLayout(actionButtonLayout,2,1)
 
         self.setLayout(mainLayout)
 
@@ -95,16 +108,11 @@ class MainUI(QWidget):
         self.setGeometry(500,500,1000,2000)
 
     # 버튼 문자 변경
-    def button_setText(self, text_1="", text_2="", text_3="", text_4="", text_5="", text_6="", text_7="", text_8="", text_9=""):
-        self.button_1.setText(text_1)
-        self.button_2.setText(text_2)
-        self.button_3.setText(text_3)
-        self.button_4.setText(text_4)
-        self.button_5.setText(text_5)
-        self.button_6.setText(text_6)
-        self.button_7.setText(text_7)
-        self.button_8.setText(text_8)
-        self.button_9.setText(text_9)
+    def button_setText(self, text_1="", text_2="", text_3="", text_4=""):
+        self.actionButton_1.setText(text_1)
+        self.actionButton_2.setText(text_2)
+        self.actionButton_3.setText(text_3)
+        self.actionButton_4.setText(text_4)
 
     # 텍스트 파일 불러오기
     def text_load(self, filename):
@@ -142,7 +150,7 @@ class MainUI(QWidget):
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.enemyWindow.setText("")
         self.playerWindow.setText("")
-        self.button_setText("New Game", "How To Play", "Credit", text_9= "Exit")
+        self.button_setText("New Game", "How To Play", "Credit", "Exit")
 
     # 크레딧
     def screen_credit(self):
