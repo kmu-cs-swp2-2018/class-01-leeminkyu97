@@ -141,6 +141,14 @@ class MainUI(QWidget):
         elif self.current_text == "Ending.txt":
             self.screen_main()
 
+    # 맵 로드
+    def map_load(self):
+        pass
+
+    # 맵 지우기
+    def map_end(self):
+        pass
+
     # 메인 화면
     def screen_main(self):
         self.placeWindow.setText("메인 화면")
@@ -165,7 +173,23 @@ class MainUI(QWidget):
         self.placeWindow.setText("직업 선택")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.gameWindow.setText("플레이어의 직업을 선택해주세요")
-        self.button_setText("직업1", "직업2", "직업3")
+        self.button_setText("직업1", "직업2", "직업3", "뒤로")
+
+    # 마을 광장
+    def screen_village_square(self):
+        pass
+
+    # 마을 상점
+    def screen_village_shop(self):
+        pass
+
+    # 던전 이동
+    def screen_dungeon_move(self):
+        pass
+
+    # 던전 전투
+    def screen_dungeon_battle(self):
+        pass
 
 
 if __name__ == '__main__':

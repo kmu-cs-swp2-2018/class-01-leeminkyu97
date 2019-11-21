@@ -28,18 +28,22 @@ class Controller:
     # move button_1 event
     def event_moveButton1(self):
         mb1 = self.UI.moveButton_1
+        flag = False
 
     # move button_2 event
     def event_moveButton2(self):
         mb2 = self.UI.moveButton_2
+        flag = False
 
     # move button_3 event
     def event_moveButton3(self):
         mb3 = self.UI.moveButton_3
+        flag = False
 
     # move button_4 event
     def event_moveButton4(self):
         mb4 = self.UI.moveButton_4
+        flag = False
 
 
 
