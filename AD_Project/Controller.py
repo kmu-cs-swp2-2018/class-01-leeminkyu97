@@ -1,5 +1,6 @@
 import sys
 from UI import MainUI
+from UnitModel import Unit
 
 
 from PyQt5.QtCore import Qt
