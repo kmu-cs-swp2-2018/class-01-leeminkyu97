@@ -1,6 +1,6 @@
 import sys
 from UI import MainUI
-from Unit import Unit
+
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton
@@ -10,13 +10,15 @@ from PyQt5.QtWidgets import QApplication, QWidget
 class Controller:
     def __init__(self):
         self.UI = MainUI()
-        self.player = Unit()
-        self.monster = Unit()
-        self.boss = Unit()
         self.UI.button_1.clicked.connect(self.event_button1)
         self.UI.button_2.clicked.connect(self.event_button2)
         self.UI.button_3.clicked.connect(self.event_button3)
         self.UI.button_4.clicked.connect(self.event_button4)
+        self.UI.button_5.clicked.connect(self.event_button5)
+        self.UI.button_6.clicked.connect(self.event_button6)
+        self.UI.button_7.clicked.connect(self.event_button7)
+        self.UI.button_8.clicked.connect(self.event_button8)
+        self.UI.button_9.clicked.connect(self.event_button9)
 
     # game start
     def start(self, app):
@@ -57,3 +59,28 @@ class Controller:
 
         if b4.text() == "Exit":
             self.UI.close()
+
+    # button_5 event
+    def event_button5(self):
+        b5 = self.UI.button_5
+
+    # button_6 event
+    def event_button6(self):
+        b6 = self.UI.button_6
+
+    # button_7 event
+    def event_button7(self):
+        b7 = self.UI.button_7
+
+    # button_8 event
+    def event_button8(self):
+        b8 = self.UI.button_8
+
+    # button_9 event
+    def event_button9(self):
+        b9 = self.UI.button_9
+
+
+if __name__ == '__main__':
+    a = Controller()
+    a.start()
