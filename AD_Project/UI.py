@@ -165,22 +165,28 @@ class MainUI(QWidget):
         self.placeWindow.setText("제작자")
         self.gameWindow.setText("20163136이민규\n20182089송희범")  # 가운데정렬 문제해결 요함
         self.gameWindow.setAlignment(Qt.AlignCenter)
-
-        self.button_setText("Main")
+        self.button_setText("","","","뒤로")
 
     # 직업 선택
     def screen_class(self):
         self.placeWindow.setText("직업 선택")
-        self.gameWindow.setAlignment(Qt.AlignCenter)
         self.gameWindow.setText("플레이어의 직업을 선택해주세요")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("직업1", "직업2", "직업3", "뒤로")
 
     # 마을 광장
-    def screen_village_square(self):
-        pass
+    def screen_village_square(self, village_name):
+        self.placeWindow.setText(village_name)
+        self.gameWindow.setText("마을 UI")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.button_setText("상점", "여관", "던전 선택", "마을 선택")
 
     # 마을 상점
     def screen_village_shop(self):
+        self.placeWindow.setText("상점")
+        self.gameWindow.setText("상점 UI")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.button_setText("","","","뒤로")
         pass
 
     # 던전 이동

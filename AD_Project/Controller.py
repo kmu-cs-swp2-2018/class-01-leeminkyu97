@@ -1,6 +1,6 @@
 import sys
 from UI import MainUI
-from UnitModel import Unit
+from Model import Unit
 
 
 from PyQt5.QtCore import Qt
@@ -20,11 +20,22 @@ class Controller:
         self.UI.actionButton_3.clicked.connect(self.event_actionButton3)
         self.UI.actionButton_4.clicked.connect(self.event_actionButton4)
 
+        self.player = Unit()
+        self.player.setting(place = "메인 화면")
+
     # game start
     def start(self, app):
         self.UI.screen_main()
         self.UI.show()
         sys.exit(app.exec_())
+
+    # back control
+    def back(self):
+        if self.player.place == "메인 화면":
+            self.UI.screen_main()
+        else:
+            self.UI.screen_village_square(self.player.place)
+
 
     # move button_1 event
     def event_moveButton1(self):
@@ -52,14 +63,17 @@ class Controller:
     def event_actionButton1(self):
         ab1 = self.UI.actionButton_1
 
-        if ab1.text() == "Main":
-            self.UI.screen_main()
-        elif ab1.text() == "New Game":
+        if ab1.text() == "New Game":
             self.UI.text_load("Prolog.txt")
         elif ab1.text() == "Next":
             self.UI.text_next()
         elif ab1.text() == "Continue":
             self.UI.text_end()
+        elif ab1.text() == "직업1":
+            self.player.setting(place="마을1")
+            self.UI.screen_village_square(self.player.place)
+        elif ab1.text() == "상점":
+            self.UI.screen_village_shop()
 
     # action button_2 event
     def event_actionButton2(self):
@@ -78,8 +92,11 @@ class Controller:
     # action button_4 event
     def event_actionButton4(self):
         ab4 = self.UI.actionButton_4
+
         if ab4.text() == "Exit":
             self.UI.close()
+        elif ab4.text() == "뒤로":
+            self.back()
 
 
 
