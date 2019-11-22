@@ -33,7 +33,7 @@ def gameMain():
         print('Success')
     else:
         print(hangman.get(0))
-        print('word [' + guess.secretWord + ']')
+        print('word [' + guess.word + ']')  # 원래 주어진 코드는 secretWord로 따로 관리하는데 이를 word로 통일
         print('guess [' + guess.currentStatus + ']')
         print('Fail')
 
