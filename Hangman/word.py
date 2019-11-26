@@ -1,8 +1,6 @@
 import random
 
-
 class Word:
-
     def __init__(self, filename):
         self.words = []
         f = open(filename, 'r')
@@ -23,4 +21,3 @@ class Word:
     def randFromDB(self):
         r = random.randrange(self.count)
         return self.words[r]
-

@@ -1,39 +1,34 @@
 from hangman import Hangman
 
-
 class Guess:
-
     def __init__(self, word):
         self.word = word  # 원래 주어진 코드는 secretWord로 따로 관리하는데 이를 word로 통일
-        self.numTries = 0
-        self.guessedChars = []
+        self.numOfTries = 0
+        self.guessedChars = set()
         self.currentStatus = "_" * len(self.word)
-        self.hangman = Hangman()
-        self.maxTries = self.hangman.getLife()
 
     def display(self):
+        hangman = Hangman()
+        life = hangman.getLife()
+
         print("Current:", self.currentStatus)
-        print("Tries:", self.numTries)
-        print("Life:", self.maxTries - self.numTries)
+        print("Tries:", self.numOfTries)
+        print("Life:", life - self.numOfTries)
 
     def guess(self, character):
-        self.guessedChars.append(character)
+        self.guessedChars.add(character)
 
-        idx = self.word.find(character)
-        if idx == -1:
-            self.numTries += 1
+        matchedIndexes = [i for i, e in enumerate(self.word) if e == character]
+        if len(matchedIndexes) == 0:
+            self.numOfTries += 1
             return False
 
-        temp_currentStatus = ""
-        for i in range(0, len(self.currentStatus)):
-            if character != self.word[i]:
-                temp_currentStatus += self.currentStatus[i]
-            else:
-                temp_currentStatus += character
-        self.currentStatus = temp_currentStatus
+        self.currentStatus = list(self.currentStatus)
+        for i in matchedIndexes:
+            self.currentStatus[i] = character
+        self.currentStatus = ''.join(self.currentStatus)
 
-        for i in range(0, len(self.currentStatus)):
-            if self.currentStatus[i] != self.word[i]:
-                return False
-
-        return True
+        if self.currentStatus == self.word:
+            return True
+        else:
+            return False
