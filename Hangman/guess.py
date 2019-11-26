@@ -8,14 +8,13 @@ class Guess:
         self.numTries = 0
         self.guessedChars = []
         self.currentStatus = "_" * len(self.word)
+        self.hangman = Hangman()
+        self.maxTries = self.hangman.getLife()
 
     def display(self):
-        hangman = Hangman()
-        maxTries = hangman.getLife()
-
         print("Current:", self.currentStatus)
         print("Tries:", self.numTries)
-        print("Life:", maxTries - self.numTries)
+        print("Life:", self.maxTries - self.numTries)
 
     def guess(self, character):
         self.guessedChars.append(character)
