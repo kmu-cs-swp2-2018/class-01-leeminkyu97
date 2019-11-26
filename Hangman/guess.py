@@ -1,3 +1,6 @@
+from hangman import Hangman
+
+
 class Guess:
 
     def __init__(self, word):
@@ -6,11 +9,13 @@ class Guess:
         self.guessedChars = []
         self.currentStatus = "_" * len(self.word)
 
-
     def display(self):
+        hangman = Hangman()
+        maxTries = hangman.getLife()
+
         print("Current:", self.currentStatus)
         print("Tries:", self.numTries)
-
+        print("Life:", maxTries - self.numTries)
 
     def guess(self, character):
         self.guessedChars.append(character)
