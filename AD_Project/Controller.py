@@ -26,8 +26,12 @@ class Controller:
         self.v1 = Village()
         self.v1.setting(name="마을1")
 
-        self.d1 = Dungeon()
-        self.d1.setting(name="던전1")
+        self.d1_1 = Dungeon()
+        self.d1_1.setting(name="던전1-1")
+        self.d1_2 = Dungeon()
+        self.d1_2.setting(name="던전1-2")
+        self.d1_3 = Dungeon()
+        self.d1_3.setting(name="던전1-3")
 
     # game start
     def start(self, app):
@@ -77,6 +81,9 @@ class Controller:
         elif ab1.text() == "상점":
             self.player.setting(before=self.player.place)
             self.UI.screen_village_shop()
+        elif ab1.text() == "던전1-1":
+            self.player.setting(before=self.player.place)
+            self.UI.screen_dungeon()
 
     # action button_2 event
     def event_actionButton2(self):
@@ -92,6 +99,9 @@ class Controller:
         if ab3.text() == "Credit":
             self.player.setting(before=self.player.place)
             self.UI.screen_credit()
+        elif ab3.text() == "던전 선택":
+            self.player.setting(before=self.player.place)
+            self.UI.screen_village_dungeonChoice(self.player.place)
 
     # action button_4 event
     def event_actionButton4(self):
@@ -100,6 +110,8 @@ class Controller:
         if ab4.text() == "Exit":
             self.UI.close()
         elif ab4.text() == "뒤로":
+            self.back()
+        elif ab4.text() == "탈출":
             self.back()
 
 

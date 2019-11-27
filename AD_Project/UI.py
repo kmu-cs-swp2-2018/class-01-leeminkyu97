@@ -187,7 +187,20 @@ class MainUI(QWidget):
         self.gameWindow.setText("상점 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("","","","뒤로")
-        pass
+
+    # 마을 던전 선택
+    def screen_village_dungeonChoice(self, village_name):
+        self.placeWindow.setText("던전 선택")
+        self.gameWindow.setText("던전 선택 UI")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.button_setText("던전1-1", "던전1-2", "던전1-3", "뒤로")
+
+    # 던전 기본
+    def screen_dungeon(self):
+        self.placeWindow.setText("던전1-1")
+        self.gameWindow.setText("던전 UI")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.button_setText("공격", "스킬", "아이템", "탈출")
 
     # 던전 이동
     def screen_dungeon_move(self):
