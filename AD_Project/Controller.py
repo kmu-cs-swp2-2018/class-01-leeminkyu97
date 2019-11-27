@@ -42,10 +42,11 @@ class Controller:
     # back control
     def back(self):
         if self.player.before == "메인 화면":
+            self.player.setting(place=self.player.before)
             self.UI.screen_main()
         elif "마을" in self.player.before:
+            self.player.setting(place=self.player.before)
             self.UI.screen_village_square(self.player.before)
-
 
     # move button_1 event
     def event_moveButton1(self):
@@ -83,7 +84,7 @@ class Controller:
             self.UI.screen_village_shop()
         elif ab1.text() == "던전1-1":
             self.player.setting(before=self.player.place)
-            self.UI.screen_dungeon()
+            self.UI.screen_dungeon_start()
 
     # action button_2 event
     def event_actionButton2(self):
@@ -112,6 +113,7 @@ class Controller:
         elif ab4.text() == "뒤로":
             self.back()
         elif ab4.text() == "탈출":
+            self.player.setting(hp=self.player.hp-0)
             self.back()
 
 
