@@ -1,6 +1,6 @@
 import sys
 from UI import MainUI
-from Model import Unit
+from Model import Unit, Village, Dungeon
 
 
 from PyQt5.QtCore import Qt
@@ -21,7 +21,13 @@ class Controller:
         self.UI.actionButton_4.clicked.connect(self.event_actionButton4)
 
         self.player = Unit()
-        self.player.setting(place = "메인 화면")
+        self.player.setting(place="메인 화면")
+
+        self.v1 = Village()
+        self.v1.setting(name="마을1")
+
+        self.d1 = Dungeon()
+        self.d1.setting(name="던전1")
 
     # game start
     def start(self, app):
@@ -31,31 +37,27 @@ class Controller:
 
     # back control
     def back(self):
-        if self.player.place == "메인 화면":
+        if self.player.before == "메인 화면":
             self.UI.screen_main()
-        else:
-            self.UI.screen_village_square(self.player.place)
+        elif "마을" in self.player.before:
+            self.UI.screen_village_square(self.player.before)
 
 
     # move button_1 event
     def event_moveButton1(self):
         mb1 = self.UI.moveButton_1
-        flag = False
 
     # move button_2 event
     def event_moveButton2(self):
         mb2 = self.UI.moveButton_2
-        flag = False
 
     # move button_3 event
     def event_moveButton3(self):
         mb3 = self.UI.moveButton_3
-        flag = False
 
     # move button_4 event
     def event_moveButton4(self):
         mb4 = self.UI.moveButton_4
-        flag = False
 
 
 
@@ -73,6 +75,7 @@ class Controller:
             self.player.setting(place="마을1")
             self.UI.screen_village_square(self.player.place)
         elif ab1.text() == "상점":
+            self.player.setting(before=self.player.place)
             self.UI.screen_village_shop()
 
     # action button_2 event
@@ -87,6 +90,7 @@ class Controller:
         ab3 = self.UI.actionButton_3
 
         if ab3.text() == "Credit":
+            self.player.setting(before=self.player.place)
             self.UI.screen_credit()
 
     # action button_4 event
@@ -97,8 +101,6 @@ class Controller:
             self.UI.close()
         elif ab4.text() == "뒤로":
             self.back()
-
-
 
 
 if __name__ == '__main__':
