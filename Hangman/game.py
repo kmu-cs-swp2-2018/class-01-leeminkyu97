@@ -1,37 +1,46 @@
-from hangman import Hangman
-from guess import Guess
+from Life import Life
 from word import Word
 
-def gameMain():
+
+def start():
     word = Word('words.txt')
-    guess = Guess(word.randFromDB())
+    life = Life()
+    num_of_tries = 0
+    while life.is_alive():
+        print(life.display_life_state())
+        print('Current:', word.current_status)
+        print('Tries:', num_of_tries)
+        print('Life:', life.remaining_life)
 
-    hangman = Hangman()
-    maxNumOfTries = hangman.getLife()
-
-    while guess.numOfTries < maxNumOfTries:
-        display = hangman.get(maxNumOfTries - guess.numOfTries)
-        print(display)
-        guess.display()
-
-        guessedChar = input('Select a letter: ')
-        if len(guessedChar) != 1:
+        entered_char = input('Select a letter: ')
+        if len(entered_char) != 1:
             print('One character at a time!')
             continue
 
-        if guessedChar in guess.guessedChars:
-            print('You already guessed \"' + guessedChar + '\"')
+        if entered_char >= 'a' and entered_char <= 'z':
+            print('Must enter alphabet')
             continue
 
-        if guess.guess(guessedChar):
+        entered_char = entered_char.lower()
+        if entered_char in word.get_guessed_characters():
+            print('You already entered \"' + entered_char + '\"')
+            continue
+
+        result = word.guess(entered_char)
+
+        if result == 1:
             print('Success')
             return
+        if result == -1:
+            num_of_tries += 1
+            life.decrease()
+            continue
 
-    print(hangman.get(0))
-    print('word [' + guess.word + ']')  # 원래 주어진 코드는 secretWord로 따로 관리하는데 이를 word로 통일
-    print('guess [' + guess.currentStatus + ']')
+    print(life.display_life_state())
+    print('word [' + word.get_word() + ']')
+    print('guess [' + word.current_status + ']')
     print('Fail')
 
 
 if __name__ == '__main__':
-    gameMain()
+    start()
