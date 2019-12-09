@@ -37,6 +37,12 @@ class Controller:
         self.d1_3 = Dungeon()
         self.d1_3.setting(name="던전1-3")
 
+        self.m1 = Unit()
+        self.m1.setting(name="몬스터1", str=1, int=1, gold=1)
+        self.m2 = Unit()
+        self.m3 = Unit()
+
+
     # game start
     def start(self, app):
         self.UI.screen_main()
@@ -81,7 +87,7 @@ class Controller:
         elif ab1.text() == "Continue":
             self.UI.text_end()
         elif ab1.text() == "직업1":
-            self.player.setting(level=1, unit_class="직업1", hp_max=100, hp_current=100, mp_max=100, mp_current=100, gold=50, place="마을1")
+            self.player.setting(level=1, unit_class="직업1", hp_max=100, hp_current=100, mp_max=100, mp_current=100, str=10, int=10, gold=50, place="마을1")
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max, self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
         elif ab1.text() == "상점":
@@ -108,6 +114,9 @@ class Controller:
         elif ab3.text() == "던전 선택":
             self.player.setting(before=self.player.place)
             self.UI.screen_village_dungeonChoice(self.player.place)
+        elif ab3.text() == "입장":
+            self.UI.map_draw()
+            self.UI.screen_dungeon_move()
 
     # action button_4 event
     def event_actionButton4(self):

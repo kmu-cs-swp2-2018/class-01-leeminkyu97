@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import QLayout, QGridLayout, QVBoxLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton
+import MapData
 
 
 class MainUI(QWidget):
@@ -141,25 +142,32 @@ class MainUI(QWidget):
         elif self.current_text == "Ending.txt":
             self.screen_main()
 
-    # 맵 로드
-    def map_load(self):
-        pass
+    # 맵 그리기
+    def map_draw(self):
+        map = ""
+        for i in range(0, len(MapData.map1)):
+            for j in range(0, len(MapData.map1[0])):
+                if MapData.map1[i][j] == 0:
+                    map += "□"
+                elif MapData.map1[i][j] == 1:
+                    map += "■"
+                else:
+                    map += "★"
+            map += "\n"
 
-    # 맵 지우기
-    def map_end(self):
-        pass
+        self.mapWindow.setFontPointSize(12)
+        self.mapWindow.setText(map)
 
     # 유저 상태창
     def status_player(self, level, unit_class, hp_max, hp_current, mp_max, mp_current, gold):
         self.playerWindow.setText(unit_class + "  레벨 : " + str(level) + "  골드  : " + str(gold))
-        self.playerWindow.append("hp : " + str(hp_current)+ "/" +str(hp_max) + "   mp : " +str(mp_current)+ "/" + str(mp_max))
+        self.playerWindow.append("hp : " + str(hp_current) + "/" + str(hp_max) + "   mp : " + str(mp_current)+ "/" + str(mp_max))
 
     # 메인 화면
     def screen_main(self):
         self.placeWindow.setText("메인 화면")
         self.gameWindow.setFontPointSize(15)
         self.gameWindow.setText("title")
-        self.gameWindow.setFontPointSize(10)
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.enemyWindow.setText("")
         self.playerWindow.setText("")
@@ -212,7 +220,6 @@ class MainUI(QWidget):
         self.placeWindow.setText("던전1-1")
         self.gameWindow.setText("던전 이동 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.mapWindow.setText("던전 맵 UI")
         self.button_setText("", "", "아이템", "탈출")
 
     # 던전 몬스터
