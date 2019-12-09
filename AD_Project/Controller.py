@@ -24,7 +24,11 @@ class Controller:
         self.player.setting(place="메인 화면")
 
         self.v1 = Village()
-        self.v1.setting(name="마을1")
+        self.v1.setting(name="마을1", linked=["마을2"])
+        self.v2 = Village()
+        self.v2.setting(name="마을2")
+        self.v3 = Village()
+        self.v3.setting(name="마을3")
 
         self.d1_1 = Dungeon()
         self.d1_1.setting(name="던전1-1")
@@ -77,7 +81,8 @@ class Controller:
         elif ab1.text() == "Continue":
             self.UI.text_end()
         elif ab1.text() == "직업1":
-            self.player.setting(place="마을1")
+            self.player.setting(level=1, unit_class="직업1", hp_max=100, hp_current=100, mp_max=100, mp_current=100, gold=50, place="마을1")
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max, self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
         elif ab1.text() == "상점":
             self.player.setting(before=self.player.place)

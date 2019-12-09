@@ -149,6 +149,11 @@ class MainUI(QWidget):
     def map_end(self):
         pass
 
+    # 유저 상태창
+    def status_player(self, level, unit_class, hp_max, hp_current, mp_max, mp_current, gold):
+        self.playerWindow.setText(unit_class + "  레벨 : " + str(level) + "  골드  : " + str(gold))
+        self.playerWindow.append("hp : " + str(hp_current)+ "/" +str(hp_max) + "   mp : " +str(mp_current)+ "/" + str(mp_max))
+
     # 메인 화면
     def screen_main(self):
         self.placeWindow.setText("메인 화면")
@@ -163,8 +168,8 @@ class MainUI(QWidget):
     # 크레딧
     def screen_credit(self):
         self.placeWindow.setText("제작자")
-        self.gameWindow.setText("20163136이민규\n20182089송희범")  # 가운데정렬 문제해결 요함
-        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.gameWindow.setText("20163136 이민규")
+        self.gameWindow.append("20182089 송희범")
         self.button_setText("","","","뒤로")
 
     # 직업 선택
