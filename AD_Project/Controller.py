@@ -1,6 +1,7 @@
 import sys
 from UI import MainUI
 from Model import Unit, Village, Dungeon
+import MapData
 
 
 from PyQt5.QtCore import Qt
@@ -30,17 +31,8 @@ class Controller:
         self.v3 = Village()
         self.v3.setting(name="마을3")
 
-        self.d1_1 = Dungeon()
-        self.d1_1.setting(name="던전1-1")
-        self.d1_2 = Dungeon()
-        self.d1_2.setting(name="던전1-2")
-        self.d1_3 = Dungeon()
-        self.d1_3.setting(name="던전1-3")
+        self.dun = Dungeon()
 
-        self.m1 = Unit()
-        self.m1.setting(name="몬스터1", str=1, int=1, gold=1)
-        self.m2 = Unit()
-        self.m3 = Unit()
 
 
     # game start
@@ -61,6 +53,19 @@ class Controller:
     # move button_1 event
     def event_moveButton1(self):
         mb1 = self.UI.moveButton_1
+
+        x = self.player.position[0]
+        y = self.player.position[1]
+
+        if ~("던전" in self.player.place):
+            return
+        if x == 0:
+            return
+
+        if self.dun.map[x-1][y] == 1:
+            self.dun.map[x][y] = 3
+            self.dun.map[x-1][y] = 2
+            self.player.position = [x-1, y]
 
     # move button_2 event
     def event_moveButton2(self):
@@ -87,14 +92,16 @@ class Controller:
         elif ab1.text() == "Continue":
             self.UI.text_end()
         elif ab1.text() == "직업1":
-            self.player.setting(level=1, unit_class="직업1", hp_max=100, hp_current=100, mp_max=100, mp_current=100, str=10, int=10, gold=50, place="마을1")
+            self.player.setting(level=1, unit_class="직업1", hp_max=100, hp_current=100, mp_max=100, mp_current=100, gold=50, place="마을1")
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max, self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
         elif ab1.text() == "상점":
             self.player.setting(before=self.player.place)
             self.UI.screen_village_shop()
         elif ab1.text() == "던전1-1":
+            self.dun.setting(name="던전1-1", map=MapData.maps[0])
             self.player.setting(before=self.player.place)
+            self.player.setting(place="던전1-1")
             self.UI.screen_dungeon_start()
 
     # action button_2 event
@@ -115,7 +122,7 @@ class Controller:
             self.player.setting(before=self.player.place)
             self.UI.screen_village_dungeonChoice(self.player.place)
         elif ab3.text() == "입장":
-            self.UI.map_draw()
+            self.UI.map_draw(self.dun.map)
             self.UI.screen_dungeon_move()
 
     # action button_4 event
@@ -127,7 +134,7 @@ class Controller:
         elif ab4.text() == "뒤로":
             self.back()
         elif ab4.text() == "탈출":
-            self.player.setting(hp=self.player.hp-0)
+            self.player.setting(hp_current=self.player.hp-1)
             self.back()
 
 
