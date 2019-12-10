@@ -148,12 +148,16 @@ class MainUI(QWidget):
             for j in range(0, len(map[0])):
                 if map[i][j] == 0: #벽
                     tmp += "□"
-                elif map[i][j] == 1: #길 (안깬)
+                elif map[i][j] == 1: #길 (안깬, 몬스터)
                     tmp += "■"
                 elif map[i][j] == 2: #플레이어
                     tmp += "★"
                 elif map[i][j] == 3: #길 (깬)
                     tmp += "○"
+                elif map[i][j] == 4: #길 (안깬, 보물상자)
+                    tmp += "■"
+                elif map[i][j] == 5: #길 (안깬, 보스)
+                    tmp += "■"
             tmp += "\n"
 
         self.mapWindow.setFontPointSize(12)
@@ -231,9 +235,9 @@ class MainUI(QWidget):
         self.button_setText("", "", "아이템", "탈출")
 
     # 던전 몬스터
-    def screen_dungeon_monster(self):
+    def screen_dungeon_monster(self,hp,mp):
         self.placeWindow.setText("던전1-1")
-        self.gameWindow.setText("던전 몬스터 UI")
+        self.gameWindow.setText("hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("공격", "스킬", "아이템", "탈출")
 

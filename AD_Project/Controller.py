@@ -32,6 +32,7 @@ class Controller:
         self.v3.setting(name="마을3")
 
         self.dun = Dungeon()
+        self.mon = Unit()
 
 
 
@@ -73,6 +74,9 @@ class Controller:
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
             self.UI.map_draw(self.dun.map)
+            self.mon.setting(hp_current=100,mp_current=100)
+            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+
 
     # move button_2 event
     def event_moveButton2(self):
