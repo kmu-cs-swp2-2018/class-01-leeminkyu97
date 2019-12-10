@@ -54,18 +54,25 @@ class Controller:
     def event_moveButton1(self):
         mb1 = self.UI.moveButton_1
 
-        x = self.player.position[0]
-        y = self.player.position[1]
+        x = self.player.x
+        y = self.player.y
 
-        if ~("던전" in self.player.place):
+        if not ("던전" in self.player.place):
+            print("던전" in self.player.place)
+            print("place: ", self.player.place)
+            print("not dungeon")
             return
         if x == 0:
+            print("upper")
             return
+
+        print(x,y,"here")
 
         if self.dun.map[x-1][y] == 1:
             self.dun.map[x][y] = 3
             self.dun.map[x-1][y] = 2
-            self.player.position = [x-1, y]
+            self.player.x = x-1
+            self.UI.map_draw(self.dun.map)
 
     # move button_2 event
     def event_moveButton2(self):
@@ -100,8 +107,8 @@ class Controller:
             self.UI.screen_village_shop()
         elif ab1.text() == "던전1-1":
             self.dun.setting(name="던전1-1", map=MapData.maps[0])
-            self.player.setting(before=self.player.place)
-            self.player.setting(place="던전1-1")
+            self.player.setting(before=self.player.place, place="던전1-1",x=3,y=3)
+            print(self.player.x, self.player.y, self.player.place, self.player.before)
             self.UI.screen_dungeon_start()
 
     # action button_2 event
@@ -123,6 +130,8 @@ class Controller:
             self.UI.screen_village_dungeonChoice(self.player.place)
         elif ab3.text() == "입장":
             self.UI.map_draw(self.dun.map)
+            print("map:", self.dun.map)
+            print("pos:", self.player.x, self.player.y)
             self.UI.screen_dungeon_move()
 
     # action button_4 event

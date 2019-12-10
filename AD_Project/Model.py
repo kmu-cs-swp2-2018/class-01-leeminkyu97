@@ -14,9 +14,11 @@ class Unit:
         self.skill = []
         self.place = ""
         self.before = ""
-        self.position = [0,0]
+        self.x = 0
+        self.y = 0
 
-    def setting(self, level=0, unit_class="", hp_max=0, hp_current=0, mp_max=0, mp_current=0, gold=0, item={}, skill=[], place="", before="", position = [0,0]):
+    def setting(self, level=0, unit_class="", hp_max=0, hp_current=0, mp_max=0, mp_current=0,
+                gold=0, item={}, skill=[], place="", before="", x=0,y=0):
         self.level = level
         self.unit_class = unit_class
         self.hp_max = hp_max
@@ -28,7 +30,8 @@ class Unit:
         self.skill = skill
         self.place = place
         self.before = before
-        self.position = position
+        self.x = x
+        self.y = y
 
 
 class Village:
