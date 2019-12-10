@@ -117,6 +117,9 @@ class Controller:
 
         if ab2.text() == "Skip":
             self.UI.text_end()
+        elif ab2.text() == "How To Play":
+            self.player.setting(before=self.player.place)
+            self.UI.screen_howtoplay()
 
     # action button_3 event
     def event_actionButton3(self):

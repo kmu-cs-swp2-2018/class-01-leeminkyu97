@@ -182,6 +182,12 @@ class MainUI(QWidget):
         self.gameWindow.append("20182089 송희범")
         self.button_setText("","","","뒤로")
 
+    # howtoplay
+    def screen_howtoplay(self):
+        self.placeWindow.setText("HowToPlay")
+        self.gameWindow.setText("HowToPlay UI")
+        self.button_setText("", "", "", "뒤로")
+
     # 직업 선택
     def screen_class(self):
         self.placeWindow.setText("직업 선택")
