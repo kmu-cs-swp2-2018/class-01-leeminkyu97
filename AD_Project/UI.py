@@ -204,7 +204,7 @@ class MainUI(QWidget):
         self.placeWindow.setText(village_name)
         self.gameWindow.setText("마을 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.button_setText("상점", "여관", "던전 선택", "마을 선택")
+        self.button_setText("상점", "대화", "던전 선택", "마을 선택")
 
     # 마을 상점
     def screen_village_shop(self):
@@ -240,6 +240,11 @@ class MainUI(QWidget):
         self.gameWindow.setText("hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("공격", "스킬", "아이템", "탈출")
+
+    # 던전 보물상자
+    def screen_dungeon_box(self):
+        self.gameWindow.setText("보물상자 발견!!")
+        self.button_setText("","","열기","무시")
 
     #던전 보스
     def screen_dungeon_boss(self):

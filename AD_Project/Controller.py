@@ -87,6 +87,22 @@ class Controller:
             self.mon.mp_current=100
             self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
 
+        if self.dun.map[x-1][y] == 3:
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x - 1][y] = 2
+            self.player.x = x - 1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_move()
+
+        if self.dun.map[x-1][y] == 4:
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x-1][y] = 2
+            self.player.x = x-1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_box()
+
 
     # move button_2 event
     def event_moveButton2(self):
@@ -168,8 +184,10 @@ class Controller:
         elif ab3.text() == "입장":
             self.player.flag = True
             self.UI.map_draw(self.dun.map)
-            print("map:", self.dun.map)
-            print("pos:", self.player.x, self.player.y)
+            self.UI.screen_dungeon_move()
+        elif ab3.text() == "열기":
+            self.player.flag = True
+            self.UI.map_draw(self.dun.map)
             self.UI.screen_dungeon_move()
 
     # action button_4 event
@@ -182,6 +200,8 @@ class Controller:
             self.back()
         elif ab4.text() == "탈출":
             self.player.hp_current=self.player.hp_current-1
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.back()
 
 
