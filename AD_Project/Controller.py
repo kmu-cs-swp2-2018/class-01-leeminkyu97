@@ -2,6 +2,7 @@ import sys
 from UI import MainUI
 from Model import Unit, Village, Dungeon
 import MapData
+import random
 
 
 from PyQt5.QtCore import Qt
@@ -34,8 +35,6 @@ class Controller:
         self.dun = Dungeon()
         self.mon = Unit()
 
-
-
     # game start
     def start(self, app):
         self.UI.screen_main()
@@ -50,6 +49,11 @@ class Controller:
         elif "마을" in self.player.before:
             self.player.setting(place=self.player.before)
             self.UI.screen_village_square(self.player.before)
+
+    # attack
+    def attack(self, str):
+        damage = str
+        return damage
 
     # move button_1 event
     def event_moveButton1(self):
@@ -103,8 +107,10 @@ class Controller:
         elif ab1.text() == "Continue":
             self.UI.text_end()
         elif ab1.text() == "직업1":
-            self.player.setting(level=1, unit_class="직업1", hp_max=100, hp_current=100, mp_max=100, mp_current=100, gold=50, place="마을1")
-            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max, self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+            self.player.setting(level=1, unit_class="직업1", hp_max=100, hp_current=100,
+                                mp_max=100, mp_current=100, gold=50, place="마을1", str=10)
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
         elif ab1.text() == "상점":
             self.player.setting(before=self.player.place)
@@ -114,6 +120,13 @@ class Controller:
             self.player.setting(before=self.player.place, place="던전1-1",x=3,y=3)
             print(self.player.x, self.player.y, self.player.place, self.player.before)
             self.UI.screen_dungeon_start()
+        elif ab1.text() == "공격":
+            print("flag:", self.player.flag)
+            self.mon.hp_current -= self.attack(10)
+            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+            if self.mon.hp_current <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
+                self.player.setting(flag=True)
+                self.UI.screen_dungeon_move()
 
     # action button_2 event
     def event_actionButton2(self):
@@ -150,7 +163,7 @@ class Controller:
         elif ab4.text() == "뒤로":
             self.back()
         elif ab4.text() == "탈출":
-            self.player.setting(hp_current=self.player.hp-1)
+            self.player.setting(hp_current=self.player.hp_current-1)
             self.back()
 
 
