@@ -246,13 +246,29 @@ class MainUI(QWidget):
         self.gameWindow.setText("보물상자 발견!!")
         self.button_setText("","","열기","무시")
 
-    #던전 보스
+    # 던전 보물상자 열기
+    def screen_dungeon_box_open(self, gold):
+        self.gameWindow.setText(str(gold) + "획득")
+        self.button_setText("","","","계속하기")
+
+    #던전 보스 등장
     def screen_dungeon_boss(self):
-        self.placeWindow.setText("던전1-1")
-        self.gameWindow.setText("던전 보스 UI")
+        self.placeWindow.setText("던전1-1 보스")
+        self.gameWindow.setText("보스가 나타났다!!")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.button_setText("","","싸우자","탈출")
+
+    #던전 보스 배틀
+    def screen_dungeon_boss_battle(self, hp, mp):
+        self.placeWindow.setText("던전1-1 보스")
+        self.gameWindow.setText("hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("공격", "스킬", "아이템", "탈출")
 
+    # 던전 클리어
+    def screen_dungeon_clear(self):
+        self.gameWindow.setText("던전을 클리어했다 마을로 돌아가자")
+        self.button_setText("","","둘러보기","돌아가기")
 
 if __name__ == '__main__':
     import sys

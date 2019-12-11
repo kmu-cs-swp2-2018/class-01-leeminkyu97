@@ -56,6 +56,18 @@ class Controller:
         damage = str
         return damage
 
+    # 직업 1
+    def job1(self):
+        self.player.level = 1
+        self.player.unit_class = "직업1"
+        self.player.hp_max = 100
+        self.player.hp_current = 100
+        self.player.mp_max = 100
+        self.player.mp_current = 100
+        self.player.gold = 50
+        self.player.place = "마을1"
+        self.player.str = 10
+
     # move button_1 event
     def event_moveButton1(self):
         mb1 = self.UI.moveButton_1
@@ -64,21 +76,15 @@ class Controller:
         y = self.player.y
 
         if not ("던전" in self.player.place):
-            print("던전" in self.player.place)
-            print("place: ", self.player.place)
-            print("not dungeon")
             return
         if x == 0:
-            print("upper")
             return
         if self.player.flag == False:
-            print("flag is false")
             return
 
-        print(x,y,"here")
-
-        if self.dun.map[x-1][y] == 1:
+        if self.dun.map[x-1][y] == 1:   # 몬스터
             self.player.flag = False
+            self.player.place = "던전몬스터"
             self.dun.map[x][y] = 3
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
@@ -87,7 +93,7 @@ class Controller:
             self.mon.mp_current=100
             self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
 
-        if self.dun.map[x-1][y] == 3:
+        if self.dun.map[x-1][y] == 3:   # 이미 깬 길
             self.player.flag = True
             self.dun.map[x][y] = 3
             self.dun.map[x - 1][y] = 2
@@ -95,13 +101,24 @@ class Controller:
             self.UI.map_draw(self.dun.map)
             self.UI.screen_dungeon_move()
 
-        if self.dun.map[x-1][y] == 4:
+        if self.dun.map[x-1][y] == 4:   # 보물상자
             self.player.flag = True
             self.dun.map[x][y] = 3
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
             self.UI.map_draw(self.dun.map)
             self.UI.screen_dungeon_box()
+
+        if self.dun.map[x-1][y] == 5:   # 보스
+            self.player.flag = False
+            self.player.place = "던전보스"
+            self.dun.map[x][y] = 3
+            self.dun.map[x-1][y] = 2
+            self.player.x = x-1
+            self.UI.map_draw(self.dun.map)
+            self.mon.hp_current=100
+            self.mon.mp_current=100
+            self.UI.screen_dungeon_boss()
 
 
     # move button_2 event
@@ -129,15 +146,7 @@ class Controller:
         elif ab1.text() == "Continue":
             self.UI.text_end()
         elif ab1.text() == "직업1":
-            self.player.level=1
-            self.player.unit_class="직업1"
-            self.player.hp_max=100
-            self.player.hp_current=100
-            self.player.mp_max=100
-            self.player.mp_current=100
-            self.player.gold=50
-            self.player.place="마을1"
-            self.player.str=10
+            self.job1()
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
@@ -151,15 +160,20 @@ class Controller:
             self.player.place="던전1-1"
             self.player.x=3
             self.player.y=3
-            print(self.player.x, self.player.y, self.player.place, self.player.before)
             self.UI.screen_dungeon_start()
         elif ab1.text() == "공격":
-            self.mon.hp_current -= self.attack(10)
-            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
-            if self.mon.hp_current <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
-                self.player.flag=True
-                self.UI.screen_dungeon_move()
-            print("flag:", self.player.flag)
+            if "몬스터" in self.player.place:
+                self.mon.hp_current -= self.attack(10)
+                self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+                if self.mon.hp_current <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
+                    self.player.flag=True
+                    self.UI.screen_dungeon_move()
+            elif "보스" in self.player.place:
+                self.mon.hp_current -= self.attack(10)
+                self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
+                if self.mon.hp_current <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
+                    self.UI.screen_dungeon_clear()
+
 
     # action button_2 event
     def event_actionButton2(self):
@@ -188,6 +202,13 @@ class Controller:
         elif ab3.text() == "열기":
             self.player.flag = True
             self.UI.map_draw(self.dun.map)
+            self.player.gold += 500
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+            self.UI.screen_dungeon_box_open(500)
+        elif ab3.text() == "싸우자":
+            self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
+        elif ab3.text() == "둘러보기":
             self.UI.screen_dungeon_move()
 
     # action button_4 event
@@ -202,6 +223,10 @@ class Controller:
             self.player.hp_current=self.player.hp_current-1
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+            self.back()
+        elif ab4.text() == "계속하기":
+            self.UI.screen_dungeon_move()
+        elif ab4.text() == "돌아가기":
             self.back()
 
 
