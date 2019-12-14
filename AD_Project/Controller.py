@@ -119,10 +119,10 @@ class Controller:
     # back control
     def back(self):
         if self.player.before == "메인 화면":
-            self.player.place=self.player.before
+            self.player.place = self.player.before
             self.UI.screen_main()
         elif "마을" in self.player.before:
-            self.player.place=self.player.before
+            self.player.place = self.player.before
             self.UI.screen_village_square(self.player.before)
 
     # attack
@@ -155,7 +155,7 @@ class Controller:
     # 직업 3
     def job3(self):
         self.player.level = 1
-        self.player.unit_class = "직업1"
+        self.player.unit_class = "직업3"
         self.player.hp_max = 100
         self.player.hp_current = 100
         self.player.mp_max = 100
@@ -391,7 +391,8 @@ class Controller:
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
         elif ab1.text() == "상점":
-            self.player.before=self.player.place
+            self.player.before = self.player.place
+            self.player.place = "상점"
             self.UI.screen_village_shop()
         elif ab1.text() == "마을1":
             self.player.place = "마을1"
@@ -436,14 +437,25 @@ class Controller:
                 if self.mon.hp_current <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                     self.UI.screen_dungeon_clear()
         elif ab1.text() == "아이템1":
-            if self.player.gold < 50:
-                self.UI.screen_village_shop_nomoney("아이템1", 50)
-                return
-            self.player.item[0] += 1
-            self.player.gold -= 50
-            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
-                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
-            self.UI.screen_village_shop_buy("아이템1", self.player.item[0])
+            if self.player.place == "상점":
+                if self.player.gold < 50:
+                    self.UI.screen_village_shop_nomoney("아이템1", 50)
+                    return
+                self.player.item[0] += 1
+                self.player.gold -= 50
+                self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                      self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+                self.UI.screen_village_shop_buy("아이템1", self.player.item[0])
+            else:
+                self.player.item[0] -= 1
+                if self.player.hp_current + 10 < self.player.hp_max:
+                    self.player.hp_current += 10
+                else:
+                    self.player.hp_current = self.player.hp_max
+                self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                      self.player.hp_current, self.player.mp_max, self.player.mp_current,
+                                      self.player.gold)
+
 
 
 
@@ -454,7 +466,7 @@ class Controller:
         if ab2.text() == "Skip":
             self.UI.text_end()
         elif ab2.text() == "How To Play":
-            self.player.before=self.player.place
+            self.player.before = self.player.place
             self.UI.screen_howtoplay()
         elif ab2.text() == "대화":
             self.player.before = self.player.place
@@ -495,14 +507,25 @@ class Controller:
             self.player.y = self.dun.initY
             self.UI.screen_dungeon_start()
         elif ab2.text() == "아이템2":
-            if self.player.gold < 50:
-                self.UI.screen_village_shop_nomoney("아이템2", 50)
-                return
-            self.player.item[0] += 1
-            self.player.gold -= 50
-            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
-                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
-            self.UI.screen_village_shop_buy("아이템2", self.player.item[0])
+            if self.player.place == "상점":
+                if self.player.gold < 50:
+                    self.UI.screen_village_shop_nomoney("아이템2", 50)
+                    return
+                self.player.item[1] += 1
+                self.player.gold -= 50
+                self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                      self.player.hp_current, self.player.mp_max, self.player.mp_current,
+                                      self.player.gold)
+                self.UI.screen_village_shop_buy("아이템2", self.player.item[1])
+            else:
+                self.player.item[1] -= 1
+                if self.player.hp_current + 10 < self.player.hp_max:
+                    self.player.hp_current += 10
+                else:
+                    self.player.hp_current = self.player.hp_max
+                self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                      self.player.hp_current, self.player.mp_max, self.player.mp_current,
+                                      self.player.gold)
         elif ab2.text() == "직업2":
             self.job2()
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
@@ -563,19 +586,32 @@ class Controller:
             self.player.y = self.dun.initY
             self.UI.screen_dungeon_start()
         elif ab3.text() == "아이템3":
-            if self.player.gold < 50:
-                self.UI.screen_village_shop_nomoney("아이템3", 50)
-                return
-            self.player.item[0] += 1
-            self.player.gold -= 50
-            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
-                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
-            self.UI.screen_village_shop_buy("아이템3", self.player.item[0])
+            if self.player.place == "상점":
+                if self.player.gold < 50:
+                    self.UI.screen_village_shop_nomoney("아이템3", 50)
+                    return
+                self.player.item[2] += 1
+                self.player.gold -= 50
+                self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                      self.player.hp_current, self.player.mp_max, self.player.mp_current,
+                                      self.player.gold)
+                self.UI.screen_village_shop_buy("아이템3", self.player.item[2])
+            else:
+                self.player.item[2] -= 1
+                if self.player.hp_current + 10 < self.player.hp_max:
+                    self.player.hp_current += 10
+                else:
+                    self.player.hp_current = self.player.hp_max
+                self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                      self.player.hp_current, self.player.mp_max, self.player.mp_current,
+                                      self.player.gold)
         elif ab3.text() == "직업3":
             self.job3()
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
+        elif ab3.text() == "아이템":
+            self.UI.screen_dungeon_item(self.player.item)
 
     # action button_4 event
     def event_actionButton4(self):

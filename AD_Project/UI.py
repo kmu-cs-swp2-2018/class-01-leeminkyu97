@@ -255,6 +255,13 @@ class MainUI(QWidget):
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("", "", "아이템", "탈출")
 
+    # 던전 아이템
+    def screen_dungeon_item(self, itemList):
+        self.gameWindow.append("아이템1: " + str(itemList[0]))
+        self.gameWindow.append("아이템2: " + str(itemList[1]))
+        self.gameWindow.append("아이템3: " + str(itemList[2]))
+        self.button_setText("아이템1", "아이템2", "아이템3", "전투")
+
     # 던전 몬스터
     def screen_dungeon_monster(self,hp,mp):
         self.placeWindow.setText("던전1-1")
