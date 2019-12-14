@@ -194,7 +194,7 @@ class Controller:
             self.dun.map[x - 1][y] = 2
             self.player.x = x - 1
             self.UI.map_draw(self.dun.map)
-            self.UI.screen_dungeon_move()
+            self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x-1][y] == 4:   # 보물상자
             self.player.flag = True
@@ -247,7 +247,7 @@ class Controller:
             self.dun.map[x][y-1] = 2
             self.player.y = y - 1
             self.UI.map_draw(self.dun.map)
-            self.UI.screen_dungeon_move()
+            self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x][y-1] == 4:  # 보물상자
             self.player.flag = True
@@ -299,7 +299,7 @@ class Controller:
             self.dun.map[x][y + 1] = 2
             self.player.y = y + 1
             self.UI.map_draw(self.dun.map)
-            self.UI.screen_dungeon_move()
+            self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x][y + 1] == 4:  # 보물상자
             self.player.flag = True
@@ -351,7 +351,7 @@ class Controller:
             self.dun.map[x + 1][y] = 2
             self.player.x = x + 1
             self.UI.map_draw(self.dun.map)
-            self.UI.screen_dungeon_move()
+            self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x + 1][y] == 4:  # 보물상자
             self.player.flag = True
@@ -430,11 +430,13 @@ class Controller:
                 self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
                 if self.mon.hp_current <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
                     self.player.flag=True
-                    self.UI.screen_dungeon_move()
+                    self.UI.screen_dungeon_move(self.dun.clear)
             elif "보스" in self.player.enemyType:
                 self.mon.hp_current -= self.attack(10)
                 self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
                 if self.mon.hp_current <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
+                    self.dun.clear = True
+                    self.player.flag = True
                     self.UI.screen_dungeon_clear()
         elif ab1.text() == "아이템1":
             if self.player.place == "상점":
@@ -552,7 +554,7 @@ class Controller:
         elif ab3.text() == "입장":
             self.player.flag = True
             self.UI.map_draw(self.dun.map)
-            self.UI.screen_dungeon_move()
+            self.UI.screen_dungeon_move(self.dun.clear)
         elif ab3.text() == "열기":
             self.player.flag = True
             self.UI.map_draw(self.dun.map)
@@ -563,7 +565,7 @@ class Controller:
         elif ab3.text() == "싸우자":
             self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
         elif ab3.text() == "둘러보기":
-            self.UI.screen_dungeon_move()
+            self.UI.screen_dungeon_move(self.dun.clear)
         elif ab3.text() == "던전1-3":
             self.player.before = self.player.place
             self.player.place = "던전1-3"
@@ -624,19 +626,26 @@ class Controller:
         elif ab4.text() == "탈출":
             self.UI.mapWindow.clear()
             if self.player.place == "던전1-1":
-                self.dun.map[self.player.x][self.player.y] = MapData.maps[0][self.player.x][self.player.y]
+                self.dun.map[self.player.x][self.player.y] = self.d11.map[self.player.x][self.player.y]
                 self.dun.map[self.d11.initX][self.d11.initY] = 2
-                self.d11.map = self.dun.map
-            self.player.hp_current=self.player.hp_current-1
+                self.d11.map = copy.deepcopy(self.dun.map)
+            self.player.hp_current = self.player.hp_current-13
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.back()
+        elif ab4.text() == "나가기":
+            self.UI.mapWindow.clear()
+            if self.player.place == "던전1-1":
+                self.dun.map[self.player.x][self.player.y] = self.d11.map[self.player.x][self.player.y]
+                self.dun.map[self.d11.initX][self.d11.initY] = 2
+                self.d11.map = copy.deepcopy(self.dun.map)
+            self.back()
         elif ab4.text() == "계속하기":
-            self.UI.screen_dungeon_move()
+            self.UI.screen_dungeon_move(self.dun.clear)
         elif ab4.text() == "돌아가기": # 보스방 깼을 때 마을로
             self.UI.mapWindow.clear()
             if self.player.place == "던전1-1":
-                self.d11.map = self.dun.map
+                self.d11 = copy.deepcopy(self.dun)
             self.back()
         elif ab4.text() == "마을 선택":
             self.player.before = self.player.place
@@ -646,6 +655,8 @@ class Controller:
                 self.UI.screen_village_villageChoice(self.v2.linked_vil)
             elif self.player.place == "마을3":
                 self.UI.screen_village_villageChoice(self.v3.linked_vil)
+        elif ab4.text() == "전투":
+            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
 
 
 if __name__ == '__main__':

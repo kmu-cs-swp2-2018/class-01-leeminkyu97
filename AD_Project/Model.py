@@ -41,3 +41,4 @@ class Dungeon:
         self.boss = ""
         self.initX = 0
         self.initY = 0
+        self.clear = False

@@ -249,11 +249,13 @@ class MainUI(QWidget):
         self.button_setText("", "", "입장", "뒤로")
 
     # 던전 이동
-    def screen_dungeon_move(self):
-        self.placeWindow.setText("던전1-1")
+    def screen_dungeon_move(self, clear):
         self.gameWindow.setText("던전 이동 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.button_setText("", "", "아이템", "탈출")
+        if clear == False:
+            self.button_setText("", "", "아이템", "탈출")
+        else:
+            self.button_setText("", "", "아이템", "나가기")
 
     # 던전 아이템
     def screen_dungeon_item(self, itemList):
