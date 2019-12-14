@@ -3,6 +3,7 @@ from UI import MainUI
 from Model import Unit, Village, Dungeon
 import MapData
 import random
+import copy
 
 
 from PyQt5.QtCore import Qt
@@ -156,7 +157,7 @@ class Controller:
 
         if self.dun.map[x-1][y] == 1:   # 몬스터
             self.player.flag = False
-            self.player.place = "던전몬스터"
+            self.player.enemyType = "몬스터"
             self.dun.map[x][y] = 3
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
@@ -183,7 +184,7 @@ class Controller:
 
         if self.dun.map[x-1][y] == 5:   # 보스
             self.player.flag = False
-            self.player.place = "던전보스"
+            self.player.enemyType = "보스"
             self.dun.map[x][y] = 3
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
@@ -245,13 +246,13 @@ class Controller:
             self.player.y = self.d11.initY
             self.UI.screen_dungeon_start()
         elif ab1.text() == "공격":
-            if "몬스터" in self.player.place:
+            if "몬스터" in self.player.enemyType:
                 self.mon.hp_current -= self.attack(10)
                 self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
                 if self.mon.hp_current <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
                     self.player.flag=True
                     self.UI.screen_dungeon_move()
-            elif "보스" in self.player.place:
+            elif "보스" in self.player.enemyType:
                 self.mon.hp_current -= self.attack(10)
                 self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
                 if self.mon.hp_current <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
@@ -329,8 +330,9 @@ class Controller:
         elif ab4.text() == "탈출":
             self.UI.mapWindow.clear()
             if self.player.place == "던전1-1":
-                self.dun.map[self.player.x][self.player.y] = self.d11.map[self.player.x][self.player.y]
+                self.dun.map[self.player.x][self.player.y] = MapData.maps[0][self.player.x][self.player.y]
                 self.dun.map[self.d11.initX][self.d11.initY] = 2
+                print(MapData.maps[0])
                 self.d11.map = self.dun.map
             self.player.hp_current=self.player.hp_current-1
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
