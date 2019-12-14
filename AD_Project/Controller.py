@@ -138,7 +138,29 @@ class Controller:
         self.player.hp_current = 100
         self.player.mp_max = 100
         self.player.mp_current = 100
-        self.player.gold = 50
+        self.player.gold = 100
+        self.player.str = 10
+
+    # 직업 2
+    def job2(self):
+        self.player.level = 1
+        self.player.unit_class = "직업2"
+        self.player.hp_max = 100
+        self.player.hp_current = 100
+        self.player.mp_max = 100
+        self.player.mp_current = 100
+        self.player.gold = 100
+        self.player.str = 10
+
+    # 직업 3
+    def job3(self):
+        self.player.level = 1
+        self.player.unit_class = "직업1"
+        self.player.hp_max = 100
+        self.player.hp_current = 100
+        self.player.mp_max = 100
+        self.player.mp_current = 100
+        self.player.gold = 100
         self.player.str = 10
 
     # move button_1 event
@@ -191,20 +213,164 @@ class Controller:
             self.UI.map_draw(self.dun.map)
             self.mon.hp_current=100
             self.mon.mp_current=100
-            self.UI.screen_dungeon_boss()
+            self.UI.screen_dungeon_boss(self.dun.boss)
 
 
     # move button_2 event
     def event_moveButton2(self):
         mb2 = self.UI.moveButton_2
 
+        x = self.player.x
+        y = self.player.y
+
+        if not ("던전" in self.player.place):
+            return
+        if y == 0:
+            return
+        if self.player.flag == False:
+            return
+
+        if self.dun.map[x][y-1] == 1:  # 몬스터
+            self.player.flag = False
+            self.player.enemyType = "몬스터"
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y-1] = 2
+            self.player.y = y - 1
+            self.UI.map_draw(self.dun.map)
+            self.mon.hp_current = 100
+            self.mon.mp_current = 100
+            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+
+        if self.dun.map[x][y-1] == 3:  # 이미 깬 길
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y-1] = 2
+            self.player.y = y - 1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_move()
+
+        if self.dun.map[x][y-1] == 4:  # 보물상자
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y-1] = 2
+            self.player.y = y - 1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_box()
+
+        if self.dun.map[x][y-1] == 5:  # 보스
+            self.player.flag = False
+            self.player.enemyType = "보스"
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y-1] = 2
+            self.player.y = y - 1
+            self.UI.map_draw(self.dun.map)
+            self.mon.hp_current = 100
+            self.mon.mp_current = 100
+            self.UI.screen_dungeon_boss(self.dun.boss)
+
     # move button_3 event
     def event_moveButton3(self):
         mb3 = self.UI.moveButton_3
 
+        x = self.player.x
+        y = self.player.y
+
+        if not ("던전" in self.player.place):
+            return
+        if y == self.dun.map[-1]:
+            return
+        if self.player.flag == False:
+            return
+
+        if self.dun.map[x][y + 1] == 1:  # 몬스터
+            self.player.flag = False
+            self.player.enemyType = "몬스터"
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y + 1] = 2
+            self.player.y = y + 1
+            self.UI.map_draw(self.dun.map)
+            self.mon.hp_current = 100
+            self.mon.mp_current = 100
+            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+
+        if self.dun.map[x][y + 1] == 3:  # 이미 깬 길
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y + 1] = 2
+            self.player.y = y + 1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_move()
+
+        if self.dun.map[x][y + 1] == 4:  # 보물상자
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y + 1] = 2
+            self.player.y = y + 1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_box()
+
+        if self.dun.map[x][y + 1] == 5:  # 보스
+            self.player.flag = False
+            self.player.enemyType = "보스"
+            self.dun.map[x][y] = 3
+            self.dun.map[x][y + 1] = 2
+            self.player.y = y + 1
+            self.UI.map_draw(self.dun.map)
+            self.mon.hp_current = 100
+            self.mon.mp_current = 100
+            self.UI.screen_dungeon_boss(self.dun.boss)
+
     # move button_4 event
     def event_moveButton4(self):
         mb4 = self.UI.moveButton_4
+
+        x = self.player.x
+        y = self.player.y
+
+        if not ("던전" in self.player.place):
+            return
+        if x == self.dun.map[-1]:
+            return
+        if self.player.flag == False:
+            return
+
+        if self.dun.map[x + 1][y] == 1:  # 몬스터
+            self.player.flag = False
+            self.player.enemyType = "몬스터"
+            self.dun.map[x][y] = 3
+            self.dun.map[x + 1][y] = 2
+            self.player.x = x + 1
+            self.UI.map_draw(self.dun.map)
+            self.mon.hp_current = 100
+            self.mon.mp_current = 100
+            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+
+        if self.dun.map[x + 1][y] == 3:  # 이미 깬 길
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x + 1][y] = 2
+            self.player.x = x + 1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_move()
+
+        if self.dun.map[x + 1][y] == 4:  # 보물상자
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x + 1][y] = 2
+            self.player.x = x + 1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_box()
+
+        if self.dun.map[x + 1][y] == 5:  # 보스
+            self.player.flag = False
+            self.player.enemyType = "보스"
+            self.dun.map[x][y] = 3
+            self.dun.map[x + 1][y] = 2
+            self.player.x = x + 1
+            self.UI.map_draw(self.dun.map)
+            self.mon.hp_current = 100
+            self.mon.mp_current = 100
+            self.UI.screen_dungeon_boss(self.dun.boss)
 
 
 
@@ -239,11 +405,23 @@ class Controller:
         elif ab1.text() == "던전1-1":
             self.player.before = self.player.place
             self.player.place = "던전1-1"
-            self.dun.map = self.d11.map
-            self.dun.monster = self.d11.monster
-            self.dun.boss = self.d11.boss
-            self.player.x = self.d11.initX
-            self.player.y = self.d11.initY
+            self.dun = copy.deepcopy(self.d11)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab1.text() == "던전2-1":
+            self.player.before = self.player.place
+            self.player.place = "던전2-1"
+            self.dun = copy.deepcopy(self.d21)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab1.text() == "던전3-1":
+            self.player.before = self.player.place
+            self.player.place = "던전3-1"
+            self.dun = copy.deepcopy(self.d31)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
             self.UI.screen_dungeon_start()
         elif ab1.text() == "공격":
             if "몬스터" in self.player.enemyType:
@@ -257,6 +435,16 @@ class Controller:
                 self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
                 if self.mon.hp_current <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                     self.UI.screen_dungeon_clear()
+        elif ab1.text() == "아이템1":
+            if self.player.gold < 50:
+                self.UI.screen_village_shop_nomoney("아이템1", 50)
+                return
+            self.player.item[0] += 1
+            self.player.gold -= 50
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+            self.UI.screen_village_shop_buy("아이템1", self.player.item[0])
+
 
 
     # action button_2 event
@@ -284,6 +472,41 @@ class Controller:
             self.UI.screen_village_square(self.player.place)
         elif ab2.text() == "마을3":
             self.player.place = "마을3"
+            self.UI.screen_village_square(self.player.place)
+        elif ab2.text() == "던전1-2":
+            self.player.before = self.player.place
+            self.player.place = "던전1-2"
+            self.dun = copy.deepcopy(self.d12)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab2.text() == "던전2-2":
+            self.player.before = self.player.place
+            self.player.place = "던전2-2"
+            self.dun = copy.deepcopy(self.d22)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab2.text() == "던전3-2":
+            self.player.before = self.player.place
+            self.player.place = "던전3-2"
+            self.dun = copy.deepcopy(self.d32)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab2.text() == "아이템2":
+            if self.player.gold < 50:
+                self.UI.screen_village_shop_nomoney("아이템2", 50)
+                return
+            self.player.item[0] += 1
+            self.player.gold -= 50
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+            self.UI.screen_village_shop_buy("아이템2", self.player.item[0])
+        elif ab2.text() == "직업2":
+            self.job2()
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
 
 
@@ -318,6 +541,41 @@ class Controller:
             self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
         elif ab3.text() == "둘러보기":
             self.UI.screen_dungeon_move()
+        elif ab3.text() == "던전1-3":
+            self.player.before = self.player.place
+            self.player.place = "던전1-3"
+            self.dun = copy.deepcopy(self.d13)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab3.text() == "던전2-3":
+            self.player.before = self.player.place
+            self.player.place = "던전2-3"
+            self.dun = copy.deepcopy(self.d23)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab3.text() == "던전3-3":
+            self.player.before = self.player.place
+            self.player.place = "던전3-3"
+            self.dun = copy.deepcopy(self.d33)
+            self.player.x = self.dun.initX
+            self.player.y = self.dun.initY
+            self.UI.screen_dungeon_start()
+        elif ab3.text() == "아이템3":
+            if self.player.gold < 50:
+                self.UI.screen_village_shop_nomoney("아이템3", 50)
+                return
+            self.player.item[0] += 1
+            self.player.gold -= 50
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+            self.UI.screen_village_shop_buy("아이템3", self.player.item[0])
+        elif ab3.text() == "직업3":
+            self.job3()
+            self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                  self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
+            self.UI.screen_village_square(self.player.place)
 
     # action button_4 event
     def event_actionButton4(self):
@@ -332,7 +590,6 @@ class Controller:
             if self.player.place == "던전1-1":
                 self.dun.map[self.player.x][self.player.y] = MapData.maps[0][self.player.x][self.player.y]
                 self.dun.map[self.d11.initX][self.d11.initY] = 2
-                print(MapData.maps[0])
                 self.d11.map = self.dun.map
             self.player.hp_current=self.player.hp_current-1
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,

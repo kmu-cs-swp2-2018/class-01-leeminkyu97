@@ -211,7 +211,15 @@ class MainUI(QWidget):
         self.placeWindow.setText("상점")
         self.gameWindow.setText("상점 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.button_setText("","","","뒤로")
+        self.button_setText("아이템1","아이템2","아이템3","뒤로")
+
+    # 마을 상점 구매
+    def screen_village_shop_buy(self, item_name, item_num):
+        self.gameWindow.append(item_name + "을 구매하였습니다. 현재 개수: " + str(item_num))
+
+    # 마을 상점 구매 실패
+    def screen_village_shop_nomoney(self, item_name, item_price):
+        self.gameWindow.append(item_name + "구매에 실패하였습니다. 가격은 " + str(item_price) + "골드입니다")
 
     # 마을 대화
     def screen_village_npc(self, npcList):
@@ -265,9 +273,9 @@ class MainUI(QWidget):
         self.button_setText("","","","계속하기")
 
     #던전 보스 등장
-    def screen_dungeon_boss(self):
+    def screen_dungeon_boss(self, boss_name):
         self.placeWindow.setText("던전1-1 보스")
-        self.gameWindow.setText("보스가 나타났다!!")
+        self.gameWindow.setText(boss_name + "가 나타났다!!")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("","","싸우자","탈출")
 

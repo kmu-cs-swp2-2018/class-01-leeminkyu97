@@ -13,7 +13,7 @@ class Unit:
         self.skill = []
 
         self.gold = 0
-        self.item = {}
+        self.item = [0,0,0]
 
         self.place = ""     # 현재 위치 기억해서 placeWindow에 사용
         self.before = ""    # 이전 위치 기억해서 뒤로, 탈출에 사용
