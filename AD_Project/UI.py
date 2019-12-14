@@ -29,10 +29,10 @@ class MainUI(QWidget):
         self.mapWindow.setFixedHeight(200)
 
         # enemy Window
-        self.enemyWindow = QTextEdit()
-        self.enemyWindow.setReadOnly(True)
-        self.enemyWindow.setFixedHeight(90)
-        self.enemyWindow.setFontPointSize(8)
+        self.questWindow = QTextEdit()
+        self.questWindow.setReadOnly(True)
+        self.questWindow.setFixedHeight(90)
+        self.questWindow.setFontPointSize(8)
 
         # player Window
         self.playerWindow = QTextEdit()
@@ -48,7 +48,7 @@ class MainUI(QWidget):
         # down Layout
         downLayout = QGridLayout()
         downLayout.addWidget(self.mapWindow, 0, 0)
-        downLayout.addWidget(self.enemyWindow, 1, 0)
+        downLayout.addWidget(self.questWindow, 1, 0)
         downLayout.addWidget(self.playerWindow, 2, 0)
 
 
@@ -121,7 +121,7 @@ class MainUI(QWidget):
         self.lines = f.readlines()
         f.close()
         self.placeWindow.setText(filename[:-4])
-        self.enemyWindow.clear()
+        self.questWindow.clear()
         self.gameWindow.clear()
         self.button_setText("Next", "Skip")
         self.gameWindow.append(self.lines[0])
@@ -175,7 +175,7 @@ class MainUI(QWidget):
         self.gameWindow.setText("title")
         self.gameWindow.setFontPointSize(10)
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.enemyWindow.setText("")
+        self.questWindow.setText("")
         self.playerWindow.setText("")
         self.button_setText("New Game", "How To Play", "Credit", "Exit")
 
@@ -213,12 +213,25 @@ class MainUI(QWidget):
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("","","","뒤로")
 
-    # 마을 던전 선택
-    def screen_village_dungeonChoice(self, village_name):
+    # 마을 대화
+    def screen_village_npc(self, npcList):
+        self.gameWindow.setText("NPC 선택 UI")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.button_setText(npcList[0], npcList[1], npcList[2], "뒤로")
+
+    # 던전 선택
+    def screen_village_dungeonChoice(self, dungeonList):
         self.placeWindow.setText("던전 선택")
         self.gameWindow.setText("던전 선택 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.button_setText("던전1-1", "던전1-2", "던전1-3", "뒤로")
+        self.button_setText(dungeonList[0],dungeonList[1],dungeonList[2], "뒤로")
+
+    # 마을 선택
+    def screen_village_villageChoice(self, villageList):
+        self.gameWindow.setText("마을 선택 UI")
+        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.button_setText(villageList[0], villageList[1], "", "뒤로")
+
 
     # 던전 입장
     def screen_dungeon_start(self):

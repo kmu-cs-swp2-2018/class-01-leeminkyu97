@@ -17,27 +17,23 @@ class Unit:
         self.x = 0  # 던전에서의 플레이어의 현재 위치 (맵 그리기 등 이동에 필요)
         self.y = 0
         self.flag = False   # True일때만 이동가능하게해서 전투중에 이동 불가
+        self.quest_flag = False
         self.str = 1
 
 
 class Village:
     def __init__(self):
         self.name = ""
-        self.linked = []
+        self.linked_vil = []
+        self.level = 0
+        self.npc = []
+        self.linked_dun = []
 
 
 class Dungeon:
     def __init__(self):
-        self.name = ""
-        self.monster = []
         self.map = []
+        self.monster = []
         self.boss = ""
-
-    def setting(self, name="", monster=[], boss="", map=[]):
-        self.name = name
-        self.monster = monster
-        self.boss = boss
-        self.map = map
-
-    def map_modify(self, x, y):
-        pass
+        self.initX = 0
+        self.initY = 0
