@@ -165,22 +165,18 @@ class Controller:
             self.player.int += 1
 
     def battle(self, dmgToMon, dmgToPly):
+        self.mon.hp -= dmgToMon
+        self.player.hp_current -= dmgToPly
+        if self.player.hp_current <= 0: # 플레이어가 죽으면
+            self.UI.gameover()
         if "몬스터" in self.player.enemyType:
-            self.mon.hp -= dmgToMon
-            self.player.hp_current -= dmgToPly
-            self.UI.screen_dungeon_monster_attack(self.mon.name, self.mon.hp, self.mon.atk)
-            if self.player.hp_current <= 0: # 플레이어가 죽으면
-                self.UI.gameover()
+            self.UI.screen_dungeon_monster_attack(self.mon.name, self.mon.hp, dmgToMon, dmgToPly)
             if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                 self.player.gold += self.mon.gold
                 self.player.flag = True
                 self.UI.screen_dungeon_move(self.dun.clear)
         elif "보스" in self.player.enemyType:
-            self.mon.hp -= dmgToMon
-            self.player.hp_current -= dmgToPly
-            self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
-            if self.player.hp_current <= 0:
-                self.UI.gameover()
+            self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp, dmgToMon, dmgToPly)
             if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                 self.dun.clear = True
                 self.player.flag = True
@@ -621,14 +617,20 @@ class Controller:
         elif ab1.text() == "공격":
             self.battle(self.attack(self.player.str), self.attackByMon(self.mon.atk))
         elif ab1.text() == "장작패기":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10 #임의 지정
             self.battle(self.skill_11(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab1.text() == "플래쉬 뱅":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10  # 임의 지정
             self.battle(self.skill_21(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab1.text() == "함정설계":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10  # 임의 지정
             self.battle(self.skill_31(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
@@ -753,14 +755,20 @@ class Controller:
             else:
                 self.UI.npc_over()
         elif ab2.text() == "믿는도끼로 발등찍기":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10 #임의 지정
             self.battle(self.skill_12(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab2.text() == "넛 크래커":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10  # 임의 지정
             self.battle(self.skill_22(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab2.text() == "투탕카멘의 저주":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10  # 임의 지정
             self.battle(self.skill_32(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
@@ -867,14 +875,20 @@ class Controller:
             else:
                 self.UI.npc_over()
         elif ab3.text() == "도끼 던지기":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10 #임의 지정
             self.battle(self.skill_13(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab3.text() == "헤드샷":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10  # 임의 지정
             self.battle(self.skill_23(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab3.text() == "마야인의 지구종말":
+            if self.player.mp_current < 10:
+                return
             self.player.mp_current -= 10  # 임의 지정
             self.battle(self.skill_33(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
