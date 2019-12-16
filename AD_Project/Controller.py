@@ -137,6 +137,33 @@ class Controller:
             self.player.place = self.player.before
             self.UI.screen_village_square(self.player.before)
 
+    # level up
+    def levelup(self):
+        if self.player.unit_class == "나무꾼":
+            self.player.hp_max += 100
+            self.player.hp_current += 100
+            self.player.mp_max += 100
+            self.player.mp_current += 100
+            self.player.str += 10
+            self.player.dex += 1
+            self.player.int += 1
+        elif self.player.unit_class == "저격수":
+            self.player.hp_max += 100
+            self.player.hp_current += 100
+            self.player.mp_max += 100
+            self.player.mp_current += 100
+            self.player.str += 10
+            self.player.dex += 1
+            self.player.int += 1
+        elif self.player.unit_class == "고고학자":
+            self.player.hp_max += 100
+            self.player.hp_current += 100
+            self.player.mp_max += 100
+            self.player.mp_current += 100
+            self.player.str += 10
+            self.player.dex += 1
+            self.player.int += 1
+
     # attack
     def attack(self, str):
         damage = str
@@ -434,7 +461,7 @@ class Controller:
             self.UI.text_next()
         elif ab1.text() == "Continue":
             self.UI.text_end()
-        elif ab1.text() == "직업1":
+        elif ab1.text() == "나무꾼":
             self.job1()
             self.UI.screen_village_square(self.player.place)
         elif ab1.text() == "상점":
@@ -465,7 +492,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d11)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
+            self.UI.screen_dungeon_start(self.dun.name)
         elif ab1.text() == "악마들의 교회":
             if self.player.dungeon_enter[3] == 0:
                 self.UI.screen_dungeon_cant()
@@ -475,7 +502,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d21)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
+            self.UI.screen_dungeon_start(self.dun.name)
         elif ab1.text() == "대형 군용막사":
             if self.player.dungeon_enter[6] == 0:
                 self.UI.screen_dungeon_cant()
@@ -485,7 +512,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d31)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
+            self.UI.screen_dungeon_start(self.dun.name)
         elif ab1.text() == "공격":
             if "몬스터" in self.player.enemyType:
                 self.mon.hp -= self.attack(self.player.str)
@@ -507,14 +534,14 @@ class Controller:
                     self.player.flag = True
                     self.player.level += 1
                     self.UI.screen_dungeon_clear()
-        elif ab1.text() == "아이템1":
+        elif ab1.text() == "HP물약":
             if self.player.place == "상점":
                 if self.player.gold < 50:
-                    self.UI.screen_village_shop_nomoney("아이템1", 50)
+                    self.UI.screen_village_shop_nomoney("HP물약", 50)
                     return
                 self.player.item[0] += 1
                 self.player.gold -= 50
-                self.UI.screen_village_shop_buy("아이템1", self.player.item[0])
+                self.UI.screen_village_shop_buy("HP물약", self.player.item[0])
             else:
                 self.player.item[0] -= 1
                 if self.player.hp_current + 10 < self.player.hp_max:
@@ -527,6 +554,7 @@ class Controller:
                 self.UI.text_load("npc1_1.txt")
             elif self.player.level == 2:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc1_2.txt")
             elif self.player.level < 1:
                 self.UI.npc_cant(1)
@@ -537,6 +565,7 @@ class Controller:
                 self.UI.text_load("npc4_1.txt")
             elif self.player.level == 8:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc4_2.txt")
             elif self.player.level < 7:
                 self.UI.npc_cant(7)
@@ -547,6 +576,7 @@ class Controller:
                 self.UI.text_load("npc7_1.txt")
             elif self.player.level == 14:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc7_2.txt")
             elif self.player.level < 13:
                 self.UI.npc_cant(13)
@@ -599,7 +629,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d12)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
+            self.UI.screen_dungeon_start(self.dun.name)
         elif ab2.text() == "음침한 병원":
             if self.player.dungeon_enter[4] == 0:
                 self.UI.screen_dungeon_cant()
@@ -609,7 +639,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d22)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
+            self.UI.screen_dungeon_start(self.dun.name)
         elif ab2.text() == "사령관실":
             if self.player.dungeon_enter[7] == 0:
                 self.UI.screen_dungeon_cant()
@@ -619,22 +649,22 @@ class Controller:
             self.dun = copy.deepcopy(self.d32)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
-        elif ab2.text() == "아이템2":
+            self.UI.screen_dungeon_start(self.dun.name)
+        elif ab2.text() == "MP물약":
             if self.player.place == "상점":
                 if self.player.gold < 50:
-                    self.UI.screen_village_shop_nomoney("아이템2", 50)
+                    self.UI.screen_village_shop_nomoney("MP물약", 50)
                     return
                 self.player.item[1] += 1
                 self.player.gold -= 50
-                self.UI.screen_village_shop_buy("아이템2", self.player.item[1])
+                self.UI.screen_village_shop_buy("MP물약", self.player.item[1])
             else:
                 self.player.item[1] -= 1
-                if self.player.hp_current + 10 < self.player.hp_max:
-                    self.player.hp_current += 10
+                if self.player.mp_current + 10 < self.player.mp_max:
+                    self.player.mp_current += 10
                 else:
-                    self.player.hp_current = self.player.hp_max
-        elif ab2.text() == "직업2":
+                    self.player.mp_current = self.player.mp_max
+        elif ab2.text() == "저격수":
             self.job2()
             self.UI.screen_village_square(self.player.place)
         elif ab2.text() == "npc2":
@@ -642,6 +672,7 @@ class Controller:
                 self.UI.text_load("npc2_1.txt")
             elif self.player.level == 4:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc2_2.txt")
             elif self.player.level < 3:
                 self.UI.npc_cant(3)
@@ -652,6 +683,7 @@ class Controller:
                 self.UI.text_load("npc5_1.txt")
             elif self.player.level == 10:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc5_2.txt")
             elif self.player.level < 9:
                 self.UI.npc_cant(9)
@@ -662,6 +694,7 @@ class Controller:
                 self.UI.text_load("npc8_1.txt")
             elif self.player.level == 16:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc8_2.txt")
         elif self.player.level < 15:
             self.UI.npc_cant(16)
@@ -709,7 +742,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d13)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
+            self.UI.screen_dungeon_start(self.dun.name)
         elif ab3.text() == "폐쇄된 대형마트":
             if self.player.dungeon_enter[5] == 0:
                 self.UI.screen_dungeon_cant()
@@ -719,7 +752,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d23)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
+            self.UI.screen_dungeon_start(self.dun.name)
         elif ab3.text() == "군병원":
             if self.player.dungeon_enter[8] == 0:
                 self.UI.screen_dungeon_cant()
@@ -729,22 +762,8 @@ class Controller:
             self.dun = copy.deepcopy(self.d33)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start()
-        elif ab3.text() == "아이템3":
-            if self.player.place == "상점":
-                if self.player.gold < 50:
-                    self.UI.screen_village_shop_nomoney("아이템3", 50)
-                    return
-                self.player.item[2] += 1
-                self.player.gold -= 50
-                self.UI.screen_village_shop_buy("아이템3", self.player.item[2])
-            else:
-                self.player.item[2] -= 1
-                if self.player.hp_current + 10 < self.player.hp_max:
-                    self.player.hp_current += 10
-                else:
-                    self.player.hp_current = self.player.hp_max
-        elif ab3.text() == "직업3":
+            self.UI.screen_dungeon_start(self.dun.name)
+        elif ab3.text() == "고고학자":
             self.job3()
             self.UI.screen_village_square(self.player.place)
         elif ab3.text() == "아이템":
@@ -754,6 +773,7 @@ class Controller:
                 self.UI.text_load("npc3_1.txt")
             elif self.player.level == 5:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc3_2.txt")
             elif self.player.level < 4:
                 self.UI.npc_cant(4)
@@ -764,6 +784,7 @@ class Controller:
                 self.UI.text_load("npc6_1.txt")
             elif self.player.level == 12:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc6_2.txt")
             elif self.player.level < 11:
                 self.UI.npc_cant(11)
@@ -774,6 +795,7 @@ class Controller:
                 self.UI.text_load("npc9_1.txt")
             elif self.player.level == 18:
                 self.player.level += 1
+                self.levelup()
                 self.UI.text_load("npc9_2.txt")
             elif self.player.level < 17:
                 self.UI.npc_cant(17)

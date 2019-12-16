@@ -250,7 +250,7 @@ class MainUI(QWidget):
         self.placeWindow.setText("직업 선택")
         self.gameWindow.setText("플레이어의 직업을 선택해주세요")
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.button_setText("직업1", "직업2", "직업3", "뒤로")
+        self.button_setText("나무꾼", "저격수", "고고학자", "뒤로")
 
     # 마을 이동 불가
     def screen_village_cant(self):
@@ -268,7 +268,7 @@ class MainUI(QWidget):
         self.placeWindow.setText("상점")
         self.gameWindow.setText("상점 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
-        self.button_setText("아이템1","아이템2","아이템3","뒤로")
+        self.button_setText("HP물약","MP물약","","뒤로")
 
     # 마을 상점 구매
     def screen_village_shop_buy(self, item_name, item_num):
@@ -321,8 +321,8 @@ class MainUI(QWidget):
         self.gameWindow.append("던전에 해당하는 퀘스트를 받고 오시오")
 
     # 던전 입장
-    def screen_dungeon_start(self):
-        self.placeWindow.setText("던전1-1")
+    def screen_dungeon_start(self, dungeon_name):
+        self.placeWindow.setText(dungeon_name)
         self.gameWindow.setText("던전 입장 UI")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("", "", "입장", "뒤로")
@@ -338,10 +338,9 @@ class MainUI(QWidget):
 
     # 던전 아이템
     def screen_dungeon_item(self, itemList):
-        self.gameWindow.append("아이템1: " + str(itemList[0]))
-        self.gameWindow.append("아이템2: " + str(itemList[1]))
-        self.gameWindow.append("아이템3: " + str(itemList[2]))
-        self.button_setText("아이템1", "아이템2", "아이템3", "전투")
+        self.gameWindow.append("HP물약: " + str(itemList[0]))
+        self.gameWindow.append("MP물약: " + str(itemList[1]))
+        self.button_setText("HP물약", "MP물약", "", "전투")
 
     # 던전 몬스터
     def screen_dungeon_monster(self,name,hp):
