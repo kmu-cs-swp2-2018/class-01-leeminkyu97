@@ -31,6 +31,7 @@ class Monster:
         self.name = ""
         self.hp = 0
         self.atk = 0
+        self.gold = 0
 
 
 class Village:
@@ -46,7 +47,7 @@ class Dungeon:
     def __init__(self):
         self.map = []
         self.monster = []
-        self.boss = ""
+        self.boss = []
         self.initX = 0
         self.initY = 0
         self.clear = False

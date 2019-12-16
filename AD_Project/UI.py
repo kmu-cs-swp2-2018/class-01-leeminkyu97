@@ -140,8 +140,50 @@ class MainUI(QWidget):
             self.screen_class()
         elif self.current_text == "npc1_1.txt":
             self.questWindow.setText("1번 퀘스트")
-
-        elif self.current_text == "Ending.txt":
+            self.screen_quest()
+        elif self.current_text == "npc1_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc2_1.txt":
+            self.questWindow.setText("2번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc2_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc3_1.txt":
+            self.questWindow.setText("3번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc3_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc4_1.txt":
+            self.questWindow.setText("4번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc4_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc5_1.txt":
+            self.questWindow.setText("5번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc5_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc6_1.txt":
+            self.questWindow.setText("6번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc6_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc7_1.txt":
+            self.questWindow.setText("7번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc7_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc8_1.txt":
+            self.questWindow.setText("8번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc8_2.txt":
+            self.screen_quest_end()
+        elif self.current_text == "npc9_1.txt":
+            self.questWindow.setText("9번 퀘스트")
+            self.screen_quest()
+        elif self.current_text == "npc9_2.txt":
+            self.text_load("Epilogue.txt")
+        elif self.current_text == "Epilogue.txt":
             self.screen_main()
 
     # 맵 그리기
@@ -243,6 +285,16 @@ class MainUI(QWidget):
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText(villageList[0], villageList[1], "", "뒤로")
 
+    # 퀘스트 수락
+    def screen_quest(self):
+        self.gameWindow.setText("퀘스트를 받았다!")
+        self.button_setText("","","","뒤로")
+
+    # 퀘스트 완료
+    def screen_quest_end(self):
+        self.gameWindow.setText("퀘스트를 완료했다!")
+        self.questWindow.clear()
+        self.button_setText("","","","뒤로")
 
     # 던전 입장
     def screen_dungeon_start(self):
@@ -298,9 +350,9 @@ class MainUI(QWidget):
         self.button_setText("","","싸우자","탈출")
 
     #던전 보스 배틀
-    def screen_dungeon_boss_battle(self, hp):
+    def screen_dungeon_boss_battle(self, name, hp):
         self.placeWindow.setText("던전1-1 보스")
-        self.gameWindow.setText("hp: " + str(hp))
+        self.gameWindow.setText(name + "의 hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("공격", "스킬", "아이템", "탈출")
 

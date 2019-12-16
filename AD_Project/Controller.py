@@ -46,64 +46,64 @@ class Controller:
 
         self.d11 = Dungeon()
         self.d11.map = MapData.maps[0]
-        self.d11.monster = [['a11',100, 1], ['b11',100, 1]]
-        self.d11.boss = "boss11"
+        self.d11.monster = [['a11',100, 1,10], ['b11',100, 1,10]] # 이름, hp, dmg, gold
+        self.d11.boss = ["boss11", 100,1,10]
         self.d11.initX = 3
         self.d11.initY = 3
 
         self.d12 = Dungeon()
         self.d12.map = MapData.maps[1]
-        self.d12.monster = ['a12', 'b12']
-        self.d12.boss = "boss12"
+        self.d12.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d12.boss = ["boss11", 100,1,10]
         self.d12.initX = 3
         self.d12.initY = 3
 
         self.d13 = Dungeon()
         self.d13.map = MapData.maps[2]
-        self.d13.monster = ['a13', 'b13']
-        self.d13.boss = "boss13"
+        self.d13.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d13.boss = ["boss11", 100,1,10]
         self.d13.initX = 3
         self.d13.initY = 3
 
         self.d21 = Dungeon()
         self.d21.map = MapData.maps[3]
-        self.d21.monster = ['a21', 'b21']
-        self.d21.boss = "boss21"
+        self.d21.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d21.boss = ["boss11", 100,1,10]
         self.d21.initX = 3
         self.d21.initY = 3
 
         self.d22 = Dungeon()
         self.d22.map = MapData.maps[4]
-        self.d22.monster = ['a22', 'b22']
-        self.d22.boss = "boss22"
+        self.d22.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d22.boss = ["boss11", 100,1,10]
         self.d22.initX = 3
         self.d22.initY = 3
 
         self.d23 = Dungeon()
         self.d23.map = MapData.maps[5]
-        self.d23.monster = ['a23', 'b23']
-        self.d23.boss = "boss23"
+        self.d23.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d23.boss = ["boss11", 100,1,10]
         self.d23.initX = 3
         self.d23.initY = 3
 
         self.d31 = Dungeon()
         self.d31.map = MapData.maps[6]
-        self.d31.monster = ['a31', 'b31']
-        self.d31.boss = "boss31"
+        self.d31.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d31.boss = ["boss11", 100,1,10]
         self.d31.initX = 3
         self.d31.initY = 3
 
         self.d32 = Dungeon()
         self.d32.map = MapData.maps[7]
-        self.d32.monster = ['a32', 'b32']
-        self.d32.boss = "boss32"
+        self.d32.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d32.boss = ["boss11", 100,1,10]
         self.d32.initX = 3
         self.d32.initY = 3
 
         self.d33 = Dungeon()
         self.d33.map = MapData.maps[8]
-        self.d33.monster = ['a33', 'b33']
-        self.d33.boss = "boss33"
+        self.d33.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
+        self.d33.boss = ["boss11", 100,1,10]
         self.d33.initX = 3
         self.d33.initY = 3
 
@@ -134,12 +134,12 @@ class Controller:
     def job1(self):
         self.player.level = 1
         self.player.unit_class = "직업1"
-        self.player.hp_max = 100
-        self.player.hp_current = 100
-        self.player.mp_max = 100
-        self.player.mp_current = 100
-        self.player.gold = 100
-        self.player.str = 10
+        self.player.hp_max = 1000
+        self.player.hp_current = 1000
+        self.player.mp_max = 1000
+        self.player.mp_current = 1000
+        self.player.gold = 10000
+        self.player.str = 1000
 
     # 직업 2
     def job2(self):
@@ -184,9 +184,11 @@ class Controller:
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
             self.UI.map_draw(self.dun.map)
-            self.mon.name = self.dun.monster[0][0]
-            self.mon.hp = self.dun.monster[0][1]
-            self.mon.atk = self.dun.monster[0][2]
+            r = random.randint(0, len(self.dun.monster)-1)
+            self.mon.name = self.dun.monster[r][0]
+            self.mon.hp = self.dun.monster[r][1]
+            self.mon.atk = self.dun.monster[r][2]
+            self.mon.gold = self.dun.monster[r][3]
             self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x-1][y] == 3:   # 이미 깬 길
@@ -212,8 +214,11 @@ class Controller:
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp=100
-            self.UI.screen_dungeon_boss(self.dun.boss)
+            self.mon.name = self.dun.boss[0]
+            self.mon.hp = self.dun.boss[1]
+            self.mon.atk = self.dun.boss[2]
+            self.mon.gold = self.dun.boss[3]
+            self.UI.screen_dungeon_boss(self.mon.name)
 
     # move button_2 event
     def event_moveButton2(self):
@@ -236,8 +241,11 @@ class Controller:
             self.dun.map[x][y-1] = 2
             self.player.y = y - 1
             self.UI.map_draw(self.dun.map)
-            self.mon.name = self.dun.monster[0][0]
-            self.mon.hp = self.dun.monster[0][1]
+            r = random.randint(0, len(self.dun.monster) - 1)
+            self.mon.name = self.dun.monster[r][0]
+            self.mon.hp = self.dun.monster[r][1]
+            self.mon.atk = self.dun.monster[r][2]
+            self.mon.gold = self.dun.monster[r][3]
             self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x][y-1] == 3:  # 이미 깬 길
@@ -263,8 +271,11 @@ class Controller:
             self.dun.map[x][y-1] = 2
             self.player.y = y - 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp = 100
-            self.UI.screen_dungeon_boss(self.dun.boss)
+            self.mon.name = self.dun.boss[0]
+            self.mon.hp = self.dun.boss[1]
+            self.mon.atk = self.dun.boss[2]
+            self.mon.gold = self.dun.boss[3]
+            self.UI.screen_dungeon_boss(self.mon.name)
 
     # move button_3 event
     def event_moveButton3(self):
@@ -287,8 +298,11 @@ class Controller:
             self.dun.map[x][y + 1] = 2
             self.player.y = y + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.name = self.dun.monster[0][0]
-            self.mon.hp = self.dun.monster[0][1]
+            r = random.randint(0, len(self.dun.monster) - 1)
+            self.mon.name = self.dun.monster[r][0]
+            self.mon.hp = self.dun.monster[r][1]
+            self.mon.atk = self.dun.monster[r][2]
+            self.mon.gold = self.dun.monster[r][3]
             self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x][y + 1] == 3:  # 이미 깬 길
@@ -314,8 +328,11 @@ class Controller:
             self.dun.map[x][y + 1] = 2
             self.player.y = y + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp = 100
-            self.UI.screen_dungeon_boss(self.dun.boss)
+            self.mon.name = self.dun.boss[0]
+            self.mon.hp = self.dun.boss[1]
+            self.mon.atk = self.dun.boss[2]
+            self.mon.gold = self.dun.boss[3]
+            self.UI.screen_dungeon_boss(self.mon.name)
 
     # move button_4 event
     def event_moveButton4(self):
@@ -338,8 +355,11 @@ class Controller:
             self.dun.map[x + 1][y] = 2
             self.player.x = x + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.name = self.dun.monster[0][0]
-            self.mon.hp = self.dun.monster[0][1]
+            r = random.randint(0, len(self.dun.monster) - 1)
+            self.mon.name = self.dun.monster[r][0]
+            self.mon.hp = self.dun.monster[r][1]
+            self.mon.atk = self.dun.monster[r][2]
+            self.mon.gold = self.dun.monster[r][3]
             self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x + 1][y] == 3:  # 이미 깬 길
@@ -365,8 +385,11 @@ class Controller:
             self.dun.map[x + 1][y] = 2
             self.player.x = x + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp = 100
-            self.UI.screen_dungeon_boss(self.dun.boss)
+            self.mon.name = self.dun.boss[0]
+            self.mon.hp = self.dun.boss[1]
+            self.mon.atk = self.dun.boss[2]
+            self.mon.gold = self.dun.boss[3]
+            self.UI.screen_dungeon_boss(self.mon.name)
 
 
 
@@ -429,6 +452,10 @@ class Controller:
                                       self.player.hp_current, self.player.mp_max, self.player.mp_current,
                                       self.player.gold)
                 if self.mon.hp <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
+                    self.player.gold += self.mon.gold
+                    self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                          self.player.hp_current, self.player.mp_max, self.player.mp_current,
+                                          self.player.gold)
                     self.player.flag = True
                     self.UI.screen_dungeon_move(self.dun.clear)
             elif "보스" in self.player.enemyType:
@@ -437,6 +464,7 @@ class Controller:
                 if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                     self.dun.clear = True
                     self.player.flag = True
+                    self.player.quest_cnt += 1
                     self.UI.screen_dungeon_clear()
         elif ab1.text() == "아이템1":
             if self.player.place == "상점":
@@ -458,8 +486,23 @@ class Controller:
                                       self.player.hp_current, self.player.mp_max, self.player.mp_current,
                                       self.player.gold)
         elif ab1.text() == "npc1":
-            if self.player.quest_cnt >= 0:
+            if self.player.quest_cnt == 0:
                 self.UI.text_load("npc1_1.txt")
+            elif self.player.quest_cnt == 1:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc1_2.txt")
+        elif ab1.text() == "npc4":
+            if self.player.quest_cnt == 6:
+                self.UI.text_load("npc4_1.txt")
+            elif self.player.quest_cnt == 7:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc4_2.txt")
+        elif ab1.text() == "npc7":
+            if self.player.quest_cnt == 12:
+                self.UI.text_load("npc7_1.txt")
+            elif self.player.quest_cnt == 13:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc7_2.txt")
 
 
 
@@ -536,6 +579,24 @@ class Controller:
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_village_square(self.player.place)
+        elif ab2.text() == "npc2":
+            if self.player.quest_cnt == 2:
+                self.UI.text_load("npc2_1.txt")
+            elif self.player.quest_cnt == 3:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc2_2.txt")
+        elif ab2.text() == "npc5":
+            if self.player.quest_cnt == 8:
+                self.UI.text_load("npc5_1.txt")
+            elif self.player.quest_cnt == 9:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc5_2.txt")
+        elif ab2.text() == "npc8":
+            if self.player.quest_cnt == 14:
+                self.UI.text_load("npc8_1.txt")
+            elif self.player.quest_cnt == 15:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc8_2.txt")
 
 
 
@@ -566,7 +627,7 @@ class Controller:
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.UI.screen_dungeon_box_open(500)
         elif ab3.text() == "싸우자":
-            self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
+            self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
         elif ab3.text() == "둘러보기":
             self.UI.screen_dungeon_move(self.dun.clear)
         elif ab3.text() == "던전1-3":
@@ -617,6 +678,24 @@ class Controller:
             self.UI.screen_village_square(self.player.place)
         elif ab3.text() == "아이템":
             self.UI.screen_dungeon_item(self.player.item)
+        elif ab3.text() == "npc3":
+            if self.player.quest_cnt == 4:
+                self.UI.text_load("npc3_1.txt")
+            elif self.player.quest_cnt == 5:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc3_2.txt")
+        elif ab3.text() == "npc6":
+            if self.player.quest_cnt == 10:
+                self.UI.text_load("npc6_1.txt")
+            elif self.player.quest_cnt == 11:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc6_2.txt")
+        elif ab3.text() == "npc9":
+            if self.player.quest_cnt == 16:
+                self.UI.text_load("npc9_1.txt")
+            elif self.player.quest_cnt == 17:
+                self.player.quest_cnt += 1
+                self.UI.text_load("npc9_2.txt")
 
     # action button_4 event
     def event_actionButton4(self):
@@ -659,7 +738,7 @@ class Controller:
             elif self.player.place == "마을3":
                 self.UI.screen_village_villageChoice(self.v3.linked_vil)
         elif ab4.text() == "전투":
-            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+            self.UI.screen_dungeon_monster(self.mon.hp_current)
 
 
 if __name__ == '__main__':
