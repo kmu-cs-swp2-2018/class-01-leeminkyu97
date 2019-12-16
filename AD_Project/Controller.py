@@ -622,7 +622,16 @@ class Controller:
             self.battle(self.attack(self.player.str), self.attackByMon(self.mon.atk))
         elif ab1.text() == "장작패기":
             self.player.mp_current -= 10 #임의 지정
-            self.battle(self.skill_11(self.player.str, self.player.dex, self.player.int), self.attackByMon(self.mon.atk))
+            self.battle(self.skill_11(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
+        elif ab1.text() == "플래쉬 뱅":
+            self.player.mp_current -= 10  # 임의 지정
+            self.battle(self.skill_21(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
+        elif ab1.text() == "함정설계":
+            self.player.mp_current -= 10  # 임의 지정
+            self.battle(self.skill_31(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
         self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                               self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
 
@@ -739,10 +748,23 @@ class Controller:
                 self.player.level += 1
                 self.levelup()
                 self.UI.text_load("npc8_2.txt")
-        elif self.player.level < 15:
-            self.UI.npc_cant(16)
-        else:
-            self.UI.npc_over()
+            elif self.player.level < 15:
+                self.UI.npc_cant(16)
+            else:
+                self.UI.npc_over()
+        elif ab2.text() == "믿는도끼로 발등찍기":
+            self.player.mp_current -= 10 #임의 지정
+            self.battle(self.skill_12(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
+        elif ab2.text() == "넛 크래커":
+            self.player.mp_current -= 10  # 임의 지정
+            self.battle(self.skill_22(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
+        elif ab2.text() == "투탕카멘의 저주":
+            self.player.mp_current -= 10  # 임의 지정
+            self.battle(self.skill_32(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
+
         self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                               self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
 
@@ -844,6 +866,18 @@ class Controller:
                 self.UI.npc_cant(17)
             else:
                 self.UI.npc_over()
+        elif ab3.text() == "도끼 던지기":
+            self.player.mp_current -= 10 #임의 지정
+            self.battle(self.skill_13(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
+        elif ab3.text() == "헤드샷":
+            self.player.mp_current -= 10  # 임의 지정
+            self.battle(self.skill_23(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
+        elif ab3.text() == "마야인의 지구종말":
+            self.player.mp_current -= 10  # 임의 지정
+            self.battle(self.skill_33(self.player.str, self.player.dex, self.player.int),
+                        self.attackByMon(self.mon.atk))
         self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                               self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
 
