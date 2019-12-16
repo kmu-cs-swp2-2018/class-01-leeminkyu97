@@ -176,7 +176,7 @@ class Controller:
                 self.player.flag = True
                 self.UI.screen_dungeon_move(self.dun.clear)
         elif "보스" in self.player.enemyType:
-            self.UI.screen_dungeon_boss_attack(self.mon.name, self.mon.hp, dmgToMon, dmgToPly)
+            self.UI.screen_dungeon_monster_attack(self.mon.name, self.mon.hp, dmgToMon, dmgToPly)
             if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                 self.dun.clear = True
                 self.player.flag = True
@@ -803,7 +803,7 @@ class Controller:
             self.player.gold += 500
             self.UI.screen_dungeon_box_open(500)
         elif ab3.text() == "싸우자":
-            self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
+            self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
         elif ab3.text() == "둘러보기":
             self.UI.screen_dungeon_move(self.dun.clear)
         elif ab3.text() == "역동적인 숲":
@@ -1004,7 +1004,7 @@ class Controller:
             elif self.player.enemyType == "몬스터":
                 self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
             elif self.player.enemyType == "보스":
-                self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
+                self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
         elif ab4.text() == "메인으로":
             self.UI.screen_main()
         self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,

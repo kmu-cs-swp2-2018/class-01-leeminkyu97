@@ -210,7 +210,9 @@ class MainUI(QWidget):
 
     # gameover
     def gameover(self):
-        self.gameWindow.setText("죽었습니다")
+        self.gameWindow.setText("")
+        self.gameWindow.append("플레이어가 죽었습니다")
+        self.gameWindow.append("ㅜㅅㅜ")
         self.placeWindow.clear()
         self.mapWindow.clear()
         self.playerWindow.clear()
@@ -219,13 +221,13 @@ class MainUI(QWidget):
     # 유저 상태창
     def status_player(self, level, unit_class, hp_max, hp_current, mp_max, mp_current, gold):
         self.playerWindow.setText(unit_class + "  레벨 : " + str(level) + "  골드  : " + str(gold))
-        self.playerWindow.append("hp : " + str(hp_current)+ "/" +str(hp_max) + "   mp : " +str(mp_current)+ "/" + str(mp_max))
+        self.playerWindow.append("hp : " + str(hp_current) + "/" + str(hp_max) + "   mp : " + str(mp_current)+ "/" + str(mp_max))
 
     # 메인 화면
     def screen_main(self):
         self.placeWindow.setText("메인 화면")
         self.gameWindow.setFontPointSize(15)
-        self.gameWindow.setText("title")
+        self.gameWindow.setText("In A Dream")
         self.gameWindow.setFontPointSize(10)
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.questWindow.setText("")
@@ -235,7 +237,8 @@ class MainUI(QWidget):
     # 크레딧
     def screen_credit(self):
         self.placeWindow.setText("제작자")
-        self.gameWindow.setText("20163136 이민규")
+        self.gameWindow.setText("")
+        self.gameWindow.append("20163136 이민규")
         self.gameWindow.append("20182089 송희범")
         self.button_setText("","","","뒤로")
 
@@ -255,7 +258,8 @@ class MainUI(QWidget):
     # 직업 선택
     def screen_class(self):
         self.placeWindow.setText("직업 선택")
-        self.gameWindow.setText("플레이어의 직업을 선택해주세요")
+        self.gameWindow.setText("")
+        self.gameWindow.append("플레이어의 직업을 선택해주세요")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("나무꾼", "저격수", "고고학자", "뒤로")
 
@@ -265,55 +269,68 @@ class MainUI(QWidget):
 
     # 마을 이동 불가
     def screen_village_cant(self):
+        self.gameWindow.append("")
         self.gameWindow.append("아직 갈 수 없는 마을입니다")
 
     # 마을 광장
     def screen_village_square(self, village_name):
         self.placeWindow.setText(village_name)
-        self.gameWindow.setText("마을 UI")
-        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.gameWindow.setText("")
+        self.gameWindow.append("마을에서 무엇을 할까?")
         self.button_setText("상점", "대화", "던전 선택", "마을 선택")
 
     # 마을 상점
     def screen_village_shop(self):
         self.placeWindow.setText("상점")
-        self.gameWindow.setText("상점 UI")
-        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.gameWindow.setText("")
+        self.gameWindow.append("어서오세요! 꽤 보고싶었다구요?")
+        self.gameWindow.append("")
+        self.gameWindow.append("HP물약: 50골드")
+        self.gameWindow.append("MP물약: 50골드")
         self.button_setText("HP물약","MP물약","","뒤로")
 
     # 마을 상점 구매
     def screen_village_shop_buy(self, item_name, item_num):
+        self.gameWindow.append("")
         self.gameWindow.append(item_name + "을 구매하였습니다. 현재 개수: " + str(item_num))
 
     # 마을 상점 구매 실패
     def screen_village_shop_nomoney(self, item_name, item_price):
+        self.gameWindow.append("")
         self.gameWindow.append(item_name + "구매에 실패하였습니다. 가격은 " + str(item_price) + "골드입니다")
 
     # 마을 대화
     def screen_village_npc(self, npcList):
-        self.gameWindow.setText("NPC 선택 UI")
-        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.gameWindow.setText("")
+        self.gameWindow.append("대화할 상대를 선택하여 주세요")
         self.button_setText(npcList[0], npcList[1], npcList[2], "뒤로")
 
     # 던전 선택
     def screen_village_dungeonChoice(self, dungeonList):
         self.placeWindow.setText("던전 선택")
-        self.gameWindow.setText("던전 선택 UI")
+        self.gameWindow.setText("")
+        self.gameWindow.append("들어가실 던전을 선택하여주세요")
+        self.gameWindow.append("")
+        self.gameWindow.append("해당 던전의 퀘스트를 받아야 입장이 가능합니다")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText(dungeonList[0],dungeonList[1],dungeonList[2], "뒤로")
 
     # 마을 선택
     def screen_village_villageChoice(self, villageList):
-        self.gameWindow.setText("마을 선택 UI")
+        self.placeWindow.setText("마을 선택")
+        self.gameWindow.setText("")
+        self.gameWindow.append("이동하실 마을을 선택하여주세요")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText(villageList[0], villageList[1], "", "뒤로")
 
     # NPC 레벨 부족
     def npc_cant(self, level):
+        self.gameWindow.append("")
         self.gameWindow.append("아직 나와 대화할 때가 아니네 " + str(level) + "은 찍고 오게나")
 
     # NPC 퀘스트 수락
     def npc_over(self):
+        self.gameWindow.append("")
         self.gameWindow.append("저번에 도와줘서 고마웠네")
 
     # 퀘스트 수락
@@ -329,19 +346,25 @@ class MainUI(QWidget):
 
     # 던전 입장 불가
     def screen_dungeon_cant(self):
+        self.gameWindow.append("")
         self.gameWindow.append("던전에 해당하는 퀘스트를 받고 오시오")
 
     # 던전 입장
     def screen_dungeon_start(self, dungeon_name):
         self.placeWindow.setText(dungeon_name)
-        self.gameWindow.setText("던전 입장 UI")
-        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.gameWindow.setText(dungeon_name + "의 입구이다.")
+        self.gameWindow.append("")
+        self.gameWindow.append("으쓱한 기운이 느껴진다.")
         self.button_setText("", "", "입장", "뒤로")
 
     # 던전 이동
     def screen_dungeon_move(self, clear):
-        self.gameWindow.setText("던전 이동 UI")
-        self.gameWindow.setAlignment(Qt.AlignCenter)
+        self.gameWindow.setText("우측 하단의 방향키로 이동해주세요")
+        self.gameWindow.append("")
+        self.gameWindow.append("□:벽")
+        self.gameWindow.append("■:길(몬스터, 보물상자, 보스)")
+        self.gameWindow.append("○:이미 한번 깬 길")
+        self.gameWindow.append("★:플레이어")
         if clear == False:
             self.button_setText("", "", "아이템", "탈출")
         else:
@@ -349,22 +372,29 @@ class MainUI(QWidget):
 
     # 던전 아이템
     def screen_dungeon_item(self, itemList):
+        self.gameWindow.append("")
         self.gameWindow.append("HP물약: " + str(itemList[0]))
         self.gameWindow.append("MP물약: " + str(itemList[1]))
         self.button_setText("HP물약", "MP물약", "", "전투")
 
     # 던전 몬스터
     def screen_dungeon_monster(self,name,hp):
-        self.gameWindow.setText(name + "의 hp: " + str(hp))
+        self.gameWindow.setText("")
+        self.gameWindow.append(name + "의 hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("공격", "스킬", "아이템", "탈출")
 
     # 던전 몬스터 공격
     def screen_dungeon_monster_attack(self, name, hp, dmgToMon, dmgToPly):
-        self.gameWindow.append("\n")
-        self.gameWindow.append(name + "에게 " + str(dmgToMon) + "의 데미지를 주었다")
+        self.gameWindow.clear()
+        self.gameWindow.setText("")
+        self.gameWindow.append(name + "에게")
+        self.gameWindow.append(str(dmgToMon) + "의 데미지를 주었다")
+        self.gameWindow.append("")
         self.gameWindow.append(str(dmgToPly) + "의 피해를 받았다")
+        self.gameWindow.append("")
         self.gameWindow.append(name + "의 hp: " + str(hp))
+        self.gameWindow.setAlignment(Qt.AlignCenter)
 
     # 던전 보물상자
     def screen_dungeon_box(self):
@@ -379,27 +409,15 @@ class MainUI(QWidget):
     #던전 보스 등장
     def screen_dungeon_boss(self, boss_name):
         self.placeWindow.setText(boss_name)
-        self.gameWindow.setText(boss_name + "가 나타났다!!")
+        self.gameWindow.setText("")
+        self.gameWindow.append(boss_name + "가 나타났다!!")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("","","싸우자","탈출")
 
-    #던전 보스 배틀
-    def screen_dungeon_boss_battle(self, name, hp):
-        self.placeWindow.setText(name)
-        self.gameWindow.setText(name + "의 hp: " + str(hp))
-        self.button_setText("공격", "스킬", "아이템", "탈출")
-
-    def screen_dungeon_boss_attack(self, name, hp, dmgToMon, dmgToPly):
-        self.placeWindow.setText(name)
-        self.gameWindow.append("\n")
-        self.gameWindow.append(name + "에게 " + str(dmgToMon) + "의 데미지를 주었다")
-        self.gameWindow.append(str(dmgToPly) + "의 피해를 받았다")
-        self.gameWindow.append(name + "의 hp: " + str(hp))
-        self.button_setText("공격", "스킬", "아이템", "탈출")
-
     # 던전 클리어
     def screen_dungeon_clear(self):
-        self.gameWindow.setText("던전을 클리어했다 마을로 돌아가자")
+        self.gameWindow.setText("")
+        self.gameWindow.append("던전을 클리어했다 마을로 돌아가자")
         self.button_setText("","","둘러보기","돌아가기")
 
 
