@@ -205,7 +205,7 @@ class MainUI(QWidget):
                     tmp += "■"
             tmp += "\n"
 
-        self.mapWindow.setFontPointSize(12)
+        self.mapWindow.setFontPointSize(10)
         self.mapWindow.setText(tmp)
 
     # gameover
@@ -348,7 +348,6 @@ class MainUI(QWidget):
 
     # 던전 몬스터
     def screen_dungeon_monster(self,name,hp):
-        self.placeWindow.setText("던전1-1")
         self.gameWindow.setText(name + "의 hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("공격", "스킬", "아이템", "탈출")
@@ -378,7 +377,12 @@ class MainUI(QWidget):
         self.button_setText("","","싸우자","탈출")
 
     #던전 보스 배틀
-    def screen_dungeon_boss_battle(self, name, hp, dmgToMon, dmgToPly):
+    def screen_dungeon_boss_battle(self, name, hp):
+        self.placeWindow.setText(name)
+        self.gameWindow.setText(name + "의 hp: " + str(hp))
+        self.button_setText("공격", "스킬", "아이템", "탈출")
+
+    def screen_dungeon_boss_attack(self, name, hp, dmgToMon, dmgToPly):
         self.placeWindow.setText(name)
         self.gameWindow.append("\n")
         self.gameWindow.append(name + "에게 " + str(dmgToMon) + "의 데미지를 주었다")

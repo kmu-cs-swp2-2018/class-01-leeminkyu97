@@ -72,7 +72,7 @@ class Controller:
         self.d21.map = MapData.maps[3]
         self.d21.monster = [["미쳐버린 광신도", 190, 25, 10], ["추격자 집사", 195, 26, 10], ["끈질긴 전도사", 200, 27, 10], ["현혹하는 목사", 205, 28, 10]]
         self.d21.boss = ["악마와 계약한 장로", 220, 32, 10]
-        self.d21.initX = 3
+        self.d21.initX = 4
         self.d21.initY = 3
 
         self.d22 = Dungeon()
@@ -80,36 +80,36 @@ class Controller:
         self.d22.monster = [["핵폐기물 좀비", 225, 29, 10], ["사일런트힐 너스", 220, 30, 10], ["피곤한 레지던트", 215, 32, 10], ["어리버리한 인턴", 210, 33, 10]]
         self.d22.boss = ["문도박사", 240, 35, 10]
         self.d22.initX = 3
-        self.d22.initY = 3
+        self.d22.initY = 1
 
         self.d23 = Dungeon()
         self.d23.map = MapData.maps[5]
         self.d23.monster = [["오염된 시식코너 판매원", 230, 35, 10], ["쌍칼 정육점직원", 240, 36, 10], ["돈많은 진상손님", 245, 37, 10],
                             ["돌진하는 카트", 235, 39, 10]]
         self.d23.boss = ["사장아들 매니저", 255, 42, 10]
-        self.d23.initX = 3
-        self.d23.initY = 3
+        self.d23.initX = 6
+        self.d23.initY = 1
 
         self.d31 = Dungeon()
         self.d31.map = MapData.maps[6]
         self.d31.monster = [["고문관 이등병", 250, 40, 10], ["일개미 일병", 255, 41, 10], ["맞고자란 상병", 260, 42, 10], ["꼬장킹 병장", 265, 44, 10]]
         self.d31.boss = ["전역짤린 병장", 275, 48, 10]
-        self.d31.initX = 3
+        self.d31.initX = 4
         self.d31.initY = 3
 
         self.d32 = Dungeon()
         self.d32.map = MapData.maps[7]
         self.d32.monster = [['대대장', 270, 45, 10], ['연대장', 275, 47, 10], ['사단장', 280, 49, 10], ['군단장', 290, 52, 10]]
         self.d32.boss = ["사령관", 300, 54, 10]
-        self.d32.initX = 3
-        self.d32.initY = 3
+        self.d32.initX = 1
+        self.d32.initY = 1
 
         self.d33 = Dungeon()
         self.d33.map = MapData.maps[8]
         self.d33.monster = [['군의관', 250, 40, 10], ['간호장교', 265, 44, 10], ['꾀병걸린 병장', 260, 42, 10], ['실패한 실험체', 270, 30, 10]]
         self.d33.boss = ["생체병기-73", 320, 58, 10]
-        self.d33.initX = 3
-        self.d33.initY = 3
+        self.d33.initX = 1
+        self.d33.initY = 1
 
         self.dunList = ["형광색 늪지대","쓰레기강","역동적인 숲","악마들의 교회", "음침한 병원", "폐쇄된 대형마트","대형 군용막사", "사령관실", "군병원"]
 
@@ -176,7 +176,7 @@ class Controller:
                 self.player.flag = True
                 self.UI.screen_dungeon_move(self.dun.clear)
         elif "보스" in self.player.enemyType:
-            self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp, dmgToMon, dmgToPly)
+            self.UI.screen_dungeon_boss_attack(self.mon.name, self.mon.hp, dmgToMon, dmgToPly)
             if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                 self.dun.clear = True
                 self.player.flag = True
