@@ -125,6 +125,8 @@ class Controller:
             self.player.place = self.player.before
             self.UI.screen_village_square(self.player.before)
 
+
+
     # attack
     def attack(self, str):
         damage = str
@@ -193,6 +195,7 @@ class Controller:
 
         if self.dun.map[x-1][y] == 3:   # 이미 깬 길
             self.player.flag = True
+            self.player.enemyType = "이동"
             self.dun.map[x][y] = 3
             self.dun.map[x - 1][y] = 2
             self.player.x = x - 1
@@ -250,6 +253,7 @@ class Controller:
 
         if self.dun.map[x][y-1] == 3:  # 이미 깬 길
             self.player.flag = True
+            self.player.enemyType = "이동"
             self.dun.map[x][y] = 3
             self.dun.map[x][y-1] = 2
             self.player.y = y - 1
@@ -307,6 +311,7 @@ class Controller:
 
         if self.dun.map[x][y + 1] == 3:  # 이미 깬 길
             self.player.flag = True
+            self.player.enemyType = "이동"
             self.dun.map[x][y] = 3
             self.dun.map[x][y + 1] = 2
             self.player.y = y + 1
@@ -364,6 +369,7 @@ class Controller:
 
         if self.dun.map[x + 1][y] == 3:  # 이미 깬 길
             self.player.flag = True
+            self.player.enemyType = "이동"
             self.dun.map[x][y] = 3
             self.dun.map[x + 1][y] = 2
             self.player.x = x + 1
@@ -617,10 +623,10 @@ class Controller:
                 self.UI.screen_village_dungeonChoice(self.v3.linked_dun)
         elif ab3.text() == "입장":
             self.player.flag = True
+            self.player.enemyType = "이동"
             self.UI.map_draw(self.dun.map)
             self.UI.screen_dungeon_move(self.dun.clear)
         elif ab3.text() == "열기":
-            self.player.flag = True
             self.UI.map_draw(self.dun.map)
             self.player.gold += 500
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
@@ -711,18 +717,83 @@ class Controller:
                 self.dun.map[self.player.x][self.player.y] = self.d11.map[self.player.x][self.player.y]
                 self.dun.map[self.d11.initX][self.d11.initY] = 2
                 self.d11.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전1-2":
+                self.dun.map[self.player.x][self.player.y] = self.d12.map[self.player.x][self.player.y]
+                self.dun.map[self.d12.initX][self.d12.initY] = 2
+                self.d12.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전1-3":
+                self.dun.map[self.player.x][self.player.y] = self.d13.map[self.player.x][self.player.y]
+                self.dun.map[self.d13.initX][self.d13.initY] = 2
+                self.d13.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전2-1":
+                self.dun.map[self.player.x][self.player.y] = self.d21.map[self.player.x][self.player.y]
+                self.dun.map[self.d21.initX][self.d21.initY] = 2
+                self.d21.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전2-2":
+                self.dun.map[self.player.x][self.player.y] = self.d22.map[self.player.x][self.player.y]
+                self.dun.map[self.d22.initX][self.d22.initY] = 2
+                self.d22.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전2-3":
+                self.dun.map[self.player.x][self.player.y] = self.d23.map[self.player.x][self.player.y]
+                self.dun.map[self.d23.initX][self.d23.initY] = 2
+                self.d23.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전3-1":
+                self.dun.map[self.player.x][self.player.y] = self.d31.map[self.player.x][self.player.y]
+                self.dun.map[self.d31.initX][self.d31.initY] = 2
+                self.d31.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전3-2":
+                self.dun.map[self.player.x][self.player.y] = self.d32.map[self.player.x][self.player.y]
+                self.dun.map[self.d32.initX][self.d32.initY] = 2
+                self.d32.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전3-3":
+                self.dun.map[self.player.x][self.player.y] = self.d33.map[self.player.x][self.player.y]
+                self.dun.map[self.d33.initX][self.d33.initY] = 2
+                self.d33.map = copy.deepcopy(self.dun.map)
             self.player.hp_current = self.player.hp_current-13
             self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                                   self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
             self.back()
-        elif ab4.text() == "나가기":
+        elif ab4.text() == "나가기": # 던전 클리어 후
             self.UI.mapWindow.clear()
             if self.player.place == "던전1-1":
                 self.dun.map[self.player.x][self.player.y] = self.d11.map[self.player.x][self.player.y]
                 self.dun.map[self.d11.initX][self.d11.initY] = 2
                 self.d11.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전1-2":
+                self.dun.map[self.player.x][self.player.y] = self.d12.map[self.player.x][self.player.y]
+                self.dun.map[self.d12.initX][self.d12.initY] = 2
+                self.d12.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전1-3":
+                self.dun.map[self.player.x][self.player.y] = self.d13.map[self.player.x][self.player.y]
+                self.dun.map[self.d13.initX][self.d13.initY] = 2
+                self.d13.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전2-1":
+                self.dun.map[self.player.x][self.player.y] = self.d21.map[self.player.x][self.player.y]
+                self.dun.map[self.d21.initX][self.d21.initY] = 2
+                self.d21.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전2-2":
+                self.dun.map[self.player.x][self.player.y] = self.d22.map[self.player.x][self.player.y]
+                self.dun.map[self.d22.initX][self.d22.initY] = 2
+                self.d22.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전2-3":
+                self.dun.map[self.player.x][self.player.y] = self.d23.map[self.player.x][self.player.y]
+                self.dun.map[self.d23.initX][self.d23.initY] = 2
+                self.d23.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전3-1":
+                self.dun.map[self.player.x][self.player.y] = self.d31.map[self.player.x][self.player.y]
+                self.dun.map[self.d31.initX][self.d31.initY] = 2
+                self.d31.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전3-2":
+                self.dun.map[self.player.x][self.player.y] = self.d32.map[self.player.x][self.player.y]
+                self.dun.map[self.d32.initX][self.d32.initY] = 2
+                self.d32.map = copy.deepcopy(self.dun.map)
+            elif self.player.place == "던전3-3":
+                self.dun.map[self.player.x][self.player.y] = self.d33.map[self.player.x][self.player.y]
+                self.dun.map[self.d33.initX][self.d33.initY] = 2
+                self.d33.map = copy.deepcopy(self.dun.map)
             self.back()
-        elif ab4.text() == "계속하기":
+        elif ab4.text() == "계속하기": # 상자 열었을 때
+            self.player.flag = True
             self.UI.screen_dungeon_move(self.dun.clear)
         elif ab4.text() == "돌아가기": # 보스방 깼을 때 마을로
             self.UI.mapWindow.clear()
@@ -738,7 +809,12 @@ class Controller:
             elif self.player.place == "마을3":
                 self.UI.screen_village_villageChoice(self.v3.linked_vil)
         elif ab4.text() == "전투":
-            self.UI.screen_dungeon_monster(self.mon.hp_current)
+            if self.player.enemyType == "이동":
+                self.UI.screen_dungeon_move(self.dun.clear)
+            elif self.player.enemyType == "몬스터":
+                self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
+            elif self.player.enemyType == "보스":
+                self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
 
 
 if __name__ == '__main__':
