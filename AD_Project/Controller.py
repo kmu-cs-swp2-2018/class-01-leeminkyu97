@@ -594,6 +594,7 @@ class Controller:
                 self.UI.npc_over()
         elif ab1.text() == "npc4":
             if self.player.level == 7:
+                self.player.dungeon_enter[3] = 1
                 self.UI.text_load("npc4_1.txt")
             elif self.player.level == 8:
                 self.player.level += 1
@@ -605,6 +606,7 @@ class Controller:
                 self.UI.npc_over()
         elif ab1.text() == "npc7":
             if self.player.level == 13:
+                self.player.dungeon_enter[6] = 1
                 self.UI.text_load("npc7_1.txt")
             elif self.player.level == 14:
                 self.player.level += 1
@@ -723,6 +725,7 @@ class Controller:
             self.UI.screen_village_square(self.player.place)
         elif ab2.text() == "npc2":
             if self.player.level == 3:
+                self.player.dungeon_enter[1] = 1
                 self.UI.text_load("npc2_1.txt")
             elif self.player.level == 4:
                 self.player.level += 1
@@ -734,6 +737,7 @@ class Controller:
                 self.UI.npc_over()
         elif ab2.text() == "npc5":
             if self.player.level == 9:
+                self.player.dungeon_enter[4] = 1
                 self.UI.text_load("npc5_1.txt")
             elif self.player.level == 10:
                 self.player.level += 1
@@ -745,6 +749,7 @@ class Controller:
                 self.UI.npc_over()
         elif ab2.text() == "npc8":
             if self.player.level == 15:
+                self.player.dungeon_enter[7] = 1
                 self.UI.text_load("npc8_1.txt")
             elif self.player.level == 16:
                 self.player.level += 1
@@ -843,6 +848,7 @@ class Controller:
             self.UI.screen_dungeon_item(self.player.item)
         elif ab3.text() == "npc3":
             if self.player.level == 4:
+                self.player.dungeon_enter[2] = 1
                 self.UI.text_load("npc3_1.txt")
             elif self.player.level == 5:
                 self.player.level += 1
@@ -854,6 +860,7 @@ class Controller:
                 self.UI.npc_over()
         elif ab3.text() == "npc6":
             if self.player.level == 11:
+                self.player.dungeon_enter[5] = 1
                 self.UI.text_load("npc6_1.txt")
             elif self.player.level == 12:
                 self.player.level += 1
@@ -865,6 +872,7 @@ class Controller:
                 self.UI.npc_over()
         elif ab3.text() == "npc9":
             if self.player.level == 17:
+                self.player.dungeon_enter[8] = 1
                 self.UI.text_load("npc9_1.txt")
             elif self.player.level == 18:
                 self.player.level += 1
