@@ -189,7 +189,7 @@ class Controller:
         return damage
 
     def attackByMon(self, str):
-        damage = random.randint(str-8, str-4)
+        damage = random.randint(int(str/5), int(str/3))
         return damage
 
     def skill_11(self,str,dex,int):
