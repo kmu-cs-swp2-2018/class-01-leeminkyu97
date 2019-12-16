@@ -44,66 +44,70 @@ class Controller:
         self.v3.linked_dun = ["던전3-1", "던전3-2", "던전3-3"]
         self.v3.npc = ["npc7", "npc8", "npc9"]
 
+        # 이름, hp, dmg, gold
+
         self.d11 = Dungeon()
         self.d11.map = MapData.maps[0]
-        self.d11.monster = [['a11',100, 1,10], ['b11',100, 1,10]] # 이름, hp, dmg, gold
-        self.d11.boss = ["boss11", 100,1,10]
+        self.d11.monster = [["겁나 큰개구리", 100, 10, 10], ["머리 셋달린 악어", 105, 12, 10], ["식인 부레옥잠", 110, 13, 10], ["팔뚝만한 실지렁이", 100, 14, 10]]
+        self.d11.boss = ["겁나 큰개구리와 합체한 머리 셋달린 악어", 130, 16, 10]
         self.d11.initX = 3
         self.d11.initY = 3
 
         self.d12 = Dungeon()
         self.d12.map = MapData.maps[1]
-        self.d12.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d12.boss = ["boss11", 100,1,10]
+        self.d12.monster = [["겁나 큰입 베스", 120, 15, 10], ["걸어다니는 독버들", 130, 16, 10], ["입이 배까지 찢어지는 뉴트리아", 140, 17, 10],
+                            ["붉은 귀 거북", 150, 18, 10]]
+        self.d12.boss = ["쓰레기강 요괴 사오정", 180, 22, 10]
         self.d12.initX = 3
         self.d12.initY = 3
 
         self.d13 = Dungeon()
         self.d13.map = MapData.maps[2]
-        self.d13.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d13.boss = ["boss11", 100,1,10]
+        self.d13.monster = [["거짓말하는 자작나무", 160, 20, 10], ["야무진 오동나무", 175, 22, 10], ["핏빛의 단풍나무", 180, 23, 10], ["유연한 소나무", 185, 24, 10]]
+        self.d13.boss = ["오동나무 아저씨", 200, 25, 10]
         self.d13.initX = 3
         self.d13.initY = 3
 
         self.d21 = Dungeon()
         self.d21.map = MapData.maps[3]
-        self.d21.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d21.boss = ["boss11", 100,1,10]
+        self.d21.monster = [["미쳐버린 광신도", 190, 25, 10], ["추격자 집사", 195, 26, 10], ["끈질긴 전도사", 200, 27, 10], ["현혹하는 목사", 205, 28, 10]]
+        self.d21.boss = ["악마와 계약한 장로", 220, 32, 10]
         self.d21.initX = 3
         self.d21.initY = 3
 
         self.d22 = Dungeon()
         self.d22.map = MapData.maps[4]
-        self.d22.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d22.boss = ["boss11", 100,1,10]
+        self.d22.monster = [["핵폐기물 좀비", 225, 29, 10], ["사일런트힐 너스", 220, 30, 10], ["피곤한 레지던트", 215, 32, 10], ["어리버리한 인턴", 210, 33, 10]]
+        self.d22.boss = ["문도박사", 240, 35, 10]
         self.d22.initX = 3
         self.d22.initY = 3
 
         self.d23 = Dungeon()
         self.d23.map = MapData.maps[5]
-        self.d23.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d23.boss = ["boss11", 100,1,10]
+        self.d23.monster = [["오염된 시식코너 판매원", 230, 35, 10], ["쌍칼 정육점직원", 240, 36, 10], ["돈많은 진상손님", 245, 37, 10],
+                            ["돌진하는 카트", 235, 39, 10]]
+        self.d23.boss = ["사장아들 매니저", 255, 42, 10]
         self.d23.initX = 3
         self.d23.initY = 3
 
         self.d31 = Dungeon()
         self.d31.map = MapData.maps[6]
-        self.d31.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d31.boss = ["boss11", 100,1,10]
+        self.d31.monster = [["고문관 이등병", 250, 40, 10], ["일개미 일병", 255, 41, 10], ["맞고자란 상병", 260, 42, 10], ["꼬장킹 병장", 265, 44, 10]]
+        self.d31.boss = ["전역짤린 병장", 275, 48, 10]
         self.d31.initX = 3
         self.d31.initY = 3
 
         self.d32 = Dungeon()
         self.d32.map = MapData.maps[7]
-        self.d32.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d32.boss = ["boss11", 100,1,10]
+        self.d32.monster = [['대대장', 270, 45, 10], ['연대장', 275, 47, 10], ['사단장', 280, 49, 10], ['군단장', 290, 52, 10]]
+        self.d32.boss = ["사령관", 300, 54, 10]
         self.d32.initX = 3
         self.d32.initY = 3
 
         self.d33 = Dungeon()
         self.d33.map = MapData.maps[8]
-        self.d33.monster = [['a11',100, 1,10], ['b11',100, 1,10]]
-        self.d33.boss = ["boss11", 100,1,10]
+        self.d33.monster = [['군의관', 250, 40, 10], ['간호장교', 265, 44, 10], ['꾀병걸린 병장', 260, 42, 10], ['실패한 실험체', 270, 30, 10]]
+        self.d33.boss = ["생체병기-73", 320, 58, 10]
         self.d33.initX = 3
         self.d33.initY = 3
 
@@ -125,8 +129,6 @@ class Controller:
             self.player.place = self.player.before
             self.UI.screen_village_square(self.player.before)
 
-
-
     # attack
     def attack(self, str):
         damage = str
@@ -135,35 +137,41 @@ class Controller:
     # 직업 1
     def job1(self):
         self.player.level = 1
-        self.player.unit_class = "직업1"
-        self.player.hp_max = 1000
-        self.player.hp_current = 1000
-        self.player.mp_max = 1000
-        self.player.mp_current = 1000
-        self.player.gold = 10000
-        self.player.str = 1000
+        self.player.unit_class = "나무꾼"
+        self.player.hp_max = 100
+        self.player.hp_current = 100
+        self.player.mp_max = 100
+        self.player.mp_current = 100
+        self.player.gold = 100
+        self.player.str = 10
+        self.player.dex = 1
+        self.player.int = 1
 
     # 직업 2
     def job2(self):
         self.player.level = 1
-        self.player.unit_class = "직업2"
+        self.player.unit_class = "저격수"
         self.player.hp_max = 100
         self.player.hp_current = 100
         self.player.mp_max = 100
         self.player.mp_current = 100
         self.player.gold = 100
         self.player.str = 10
+        self.player.dex = 1
+        self.player.int = 1
 
     # 직업 3
     def job3(self):
         self.player.level = 1
-        self.player.unit_class = "직업3"
+        self.player.unit_class = "고고학자"
         self.player.hp_max = 100
         self.player.hp_current = 100
         self.player.mp_max = 100
         self.player.mp_current = 100
         self.player.gold = 100
         self.player.str = 10
+        self.player.dex = 1
+        self.player.int = 1
 
     # move button_1 event
     def event_moveButton1(self):
