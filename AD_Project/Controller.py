@@ -568,16 +568,16 @@ class Controller:
             self.UI.screen_dungeon_start(self.player.place)
         elif ab1.text() == "HP물약":
             if self.player.place == "상점":
-                if self.player.gold < 50:
-                    self.UI.screen_village_shop_nomoney("HP물약", 50)
+                if self.player.gold < 100:
+                    self.UI.screen_village_shop_nomoney("HP물약", 100)
                     return
                 self.player.item[0] += 1
-                self.player.gold -= 50
+                self.player.gold -= 100
                 self.UI.screen_village_shop_buy("HP물약", self.player.item[0])
             else:
                 self.player.item[0] -= 1
-                if self.player.hp_current + 10 < self.player.hp_max:
-                    self.player.hp_current += 10
+                if self.player.hp_current + 20 < self.player.hp_max:
+                    self.player.hp_current += 20
                 else:
                     self.player.hp_current = self.player.hp_max
         elif ab1.text() == "npc1":
@@ -706,16 +706,16 @@ class Controller:
             self.UI.screen_dungeon_start(self.player.place)
         elif ab2.text() == "MP물약":
             if self.player.place == "상점":
-                if self.player.gold < 50:
-                    self.UI.screen_village_shop_nomoney("MP물약", 50)
+                if self.player.gold < 100:
+                    self.UI.screen_village_shop_nomoney("MP물약", 100)
                     return
                 self.player.item[1] += 1
-                self.player.gold -= 50
+                self.player.gold -= 100
                 self.UI.screen_village_shop_buy("MP물약", self.player.item[1])
             else:
                 self.player.item[1] -= 1
-                if self.player.mp_current + 10 < self.player.mp_max:
-                    self.player.mp_current += 10
+                if self.player.mp_current + 20 < self.player.mp_max:
+                    self.player.mp_current += 20
                 else:
                     self.player.mp_current = self.player.mp_max
         elif ab2.text() == "저격수":
@@ -800,7 +800,7 @@ class Controller:
             self.UI.screen_dungeon_move(self.dun.clear)
         elif ab3.text() == "열기":
             self.UI.map_draw(self.dun.map)
-            self.player.gold += 500
+            self.player.gold += random.randint(450,750)
             self.UI.screen_dungeon_box_open(500)
         elif ab3.text() == "싸우자":
             self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)

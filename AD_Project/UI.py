@@ -285,8 +285,8 @@ class MainUI(QWidget):
         self.gameWindow.setText("")
         self.gameWindow.append("어서오세요! 꽤 보고싶었다구요?")
         self.gameWindow.append("")
-        self.gameWindow.append("HP물약: 50골드")
-        self.gameWindow.append("MP물약: 50골드")
+        self.gameWindow.append("HP물약: 100골드")
+        self.gameWindow.append("MP물약: 100골드")
         self.button_setText("HP물약","MP물약","","뒤로")
 
     # 마을 상점 구매
