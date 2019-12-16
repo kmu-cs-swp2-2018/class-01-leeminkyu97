@@ -166,7 +166,7 @@ class Controller:
 
     # attack
     def attack(self, str):
-        damage = str
+        damage = random.randrange(str-1,str+4)
         return damage
 
     # 직업 1
@@ -179,8 +179,9 @@ class Controller:
         self.player.mp_current = 100
         self.player.gold = 100
         self.player.str = 10
-        self.player.dex = 1
-        self.player.int = 1
+        self.player.dex = 6
+        self.player.int = 2
+        self.player.skill = ["장작패기", "믿는도끼로 발등찍기", "도끼 던지기"]
 
     # 직업 2
     def job2(self):
