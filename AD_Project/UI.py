@@ -242,7 +242,14 @@ class MainUI(QWidget):
     # howtoplay
     def screen_howtoplay(self):
         self.placeWindow.setText("HowToPlay")
-        self.gameWindow.setText("HowToPlay UI")
+        self.gameWindow.setText("마을에서 NPC에게 퀘스트를 받고 해당 던전에 가서 퀘스트를 클리어하는 방식입니다")
+        self.gameWindow.append("")
+        self.gameWindow.append("□:벽")
+        self.gameWindow.append("■:길(몬스터, 보물상자, 보스)")
+        self.gameWindow.append("○:이미 한번 깬 길")
+        self.gameWindow.append("★:플레이어")
+        self.gameWindow.append("")
+        self.gameWindow.append("던전에선 도중에 탈출할 수 있지만, 일정 데미지를 입습니다")
         self.button_setText("", "", "", "뒤로")
 
     # 직업 선택
