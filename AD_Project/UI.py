@@ -252,6 +252,10 @@ class MainUI(QWidget):
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("나무꾼", "저격수", "고고학자", "뒤로")
 
+    # 스킬
+    def screen_skill(self, skillList):
+        self.button_setText(skillList[0],skillList[1],skillList[2],"전투")
+
     # 마을 이동 불가
     def screen_village_cant(self):
         self.gameWindow.append("아직 갈 수 없는 마을입니다")

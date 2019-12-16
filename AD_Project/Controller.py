@@ -164,9 +164,71 @@ class Controller:
             self.player.dex += 1
             self.player.int += 1
 
+    def battle(self, dmgToMon, dmgToPly):
+        if "몬스터" in self.player.enemyType:
+            self.mon.hp -= dmgToMon
+            self.player.hp_current -= dmgToPly
+            self.UI.screen_dungeon_monster_attack(self.mon.name, self.mon.hp, self.mon.atk)
+            if self.player.hp_current <= 0: # 플레이어가 죽으면
+                self.UI.gameover()
+            if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
+                self.player.gold += self.mon.gold
+                self.player.flag = True
+                self.UI.screen_dungeon_move(self.dun.clear)
+        elif "보스" in self.player.enemyType:
+            self.mon.hp -= dmgToMon
+            self.player.hp_current -= dmgToPly
+            self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
+            if self.player.hp_current <= 0:
+                self.UI.gameover()
+            if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
+                self.dun.clear = True
+                self.player.flag = True
+                self.player.level += 1
+                self.UI.screen_dungeon_clear()
+
     # attack
     def attack(self, str):
         damage = random.randrange(str-1,str+4)
+        return damage
+
+    def attackByMon(self, str):
+        return 1
+
+    def skill_11(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_12(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_13(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_21(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_22(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_23(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_31(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_32(self,str,dex,int):
+        damage = str+dex+int
+        return damage
+
+    def skill_33(self,str,dex,int):
+        damage = str+dex+int
         return damage
 
     # 직업 1
@@ -195,6 +257,7 @@ class Controller:
         self.player.str = 10
         self.player.dex = 1
         self.player.int = 1
+        self.player.skill = ["플래쉬 뱅", "넛 크래커", "헤드샷"]
 
     # 직업 3
     def job3(self):
@@ -208,6 +271,7 @@ class Controller:
         self.player.str = 10
         self.player.dex = 1
         self.player.int = 1
+        self.player.skill = ["함정설계", "투탕카멘의 저주", "마야인의 지구종말"]
 
     # move button_1 event
     def event_moveButton1(self):
@@ -266,14 +330,6 @@ class Controller:
             self.mon.atk = self.dun.boss[2]
             self.mon.gold = self.dun.boss[3]
             self.UI.screen_dungeon_boss(self.mon.name)
-
-        if self.dun.map[x-1][y] == 6:   # 보물상자
-            self.player.flag = True
-            self.dun.map[x][y] = 3
-            self.dun.map[x-1][y] = 2
-            self.player.x = x-1
-            self.UI.map_draw(self.dun.map)
-            self.UI.screen_dungeon_box()
 
     # move button_2 event
     def event_moveButton2(self):
@@ -493,7 +549,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d11)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab1.text() == "악마들의 교회":
             if self.player.dungeon_enter[3] == 0:
                 self.UI.screen_dungeon_cant()
@@ -503,7 +559,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d21)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab1.text() == "대형 군용막사":
             if self.player.dungeon_enter[6] == 0:
                 self.UI.screen_dungeon_cant()
@@ -513,28 +569,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d31)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
-        elif ab1.text() == "공격":
-            if "몬스터" in self.player.enemyType:
-                self.mon.hp -= self.attack(self.player.str)
-                self.player.hp_current -= self.attack(self.mon.atk)
-                self.UI.screen_dungeon_monster_attack(self.mon.name, self.mon.hp,self.mon.atk)
-                if self.player.hp_current <= 0:
-                    self.UI.gameover()
-                if self.mon.hp <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
-                    self.player.gold += self.mon.gold
-                    self.player.flag = True
-                    self.UI.screen_dungeon_move(self.dun.clear)
-            elif "보스" in self.player.enemyType:
-                self.mon.hp -= self.attack(self.player.str)
-                self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
-                if self.player.hp_current <= 0:
-                    self.UI.gameover()
-                if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
-                    self.dun.clear = True
-                    self.player.flag = True
-                    self.player.level += 1
-                    self.UI.screen_dungeon_clear()
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab1.text() == "HP물약":
             if self.player.place == "상점":
                 if self.player.gold < 50:
@@ -583,6 +618,11 @@ class Controller:
                 self.UI.npc_cant(13)
             else:
                 self.UI.npc_over()
+        elif ab1.text() == "공격":
+            self.battle(self.attack(self.player.str), self.attackByMon(self.mon.atk))
+        elif ab1.text() == "장작패기":
+            self.player.mp_current -= 10 #임의 지정
+            self.battle(self.skill_11(self.player.str, self.player.dex, self.player.int), self.attackByMon(self.mon.atk))
         self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                               self.player.hp_current, self.player.mp_max, self.player.mp_current, self.player.gold)
 
@@ -606,6 +646,8 @@ class Controller:
                 self.UI.screen_village_npc(self.v2.npc)
             elif self.player.place == "군사기지":
                 self.UI.screen_village_npc(self.v3.npc)
+        elif ab2.text() == "스킬":
+            self.UI.screen_skill(self.player.skill)
         elif ab2.text() == "숲속 피난민촌":
             self.player.place = "숲속 피난민촌"
             self.UI.screen_village_square(self.player.place)
@@ -630,7 +672,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d12)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab2.text() == "음침한 병원":
             if self.player.dungeon_enter[4] == 0:
                 self.UI.screen_dungeon_cant()
@@ -640,7 +682,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d22)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab2.text() == "사령관실":
             if self.player.dungeon_enter[7] == 0:
                 self.UI.screen_dungeon_cant()
@@ -650,7 +692,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d32)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab2.text() == "MP물약":
             if self.player.place == "상점":
                 if self.player.gold < 50:
@@ -743,7 +785,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d13)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab3.text() == "폐쇄된 대형마트":
             if self.player.dungeon_enter[5] == 0:
                 self.UI.screen_dungeon_cant()
@@ -753,7 +795,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d23)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab3.text() == "군병원":
             if self.player.dungeon_enter[8] == 0:
                 self.UI.screen_dungeon_cant()
@@ -763,7 +805,7 @@ class Controller:
             self.dun = copy.deepcopy(self.d33)
             self.player.x = self.dun.initX
             self.player.y = self.dun.initY
-            self.UI.screen_dungeon_start(self.dun.name)
+            self.UI.screen_dungeon_start(self.player.place)
         elif ab3.text() == "고고학자":
             self.job3()
             self.UI.screen_village_square(self.player.place)
