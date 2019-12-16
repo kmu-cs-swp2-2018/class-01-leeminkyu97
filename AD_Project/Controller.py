@@ -1,6 +1,6 @@
 import sys
 from UI import MainUI
-from Model import Unit, Village, Dungeon, Monster
+from Model import Player, Village, Dungeon, Monster
 import MapData
 import random
 import copy
@@ -23,7 +23,7 @@ class Controller:
         self.UI.actionButton_3.clicked.connect(self.event_actionButton3)
         self.UI.actionButton_4.clicked.connect(self.event_actionButton4)
 
-        self.player = Unit()
+        self.player = Player()
         self.player.place="메인 화면"
 
         self.v1 = Village()

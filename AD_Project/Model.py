@@ -1,7 +1,7 @@
 import random
 
 
-class Unit:
+class Player:
     def __init__(self):
         self.level = 0
         self.unit_class = ""
