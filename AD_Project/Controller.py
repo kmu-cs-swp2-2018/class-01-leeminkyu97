@@ -1,6 +1,6 @@
 import sys
 from UI import MainUI
-from Model import Unit, Village, Dungeon
+from Model import Unit, Village, Dungeon, Monster
 import MapData
 import random
 import copy
@@ -46,7 +46,7 @@ class Controller:
 
         self.d11 = Dungeon()
         self.d11.map = MapData.maps[0]
-        self.d11.monster = ['a11','b11']
+        self.d11.monster = [['a11',100, 1], ['b11',100, 1]]
         self.d11.boss = "boss11"
         self.d11.initX = 3
         self.d11.initY = 3
@@ -108,7 +108,7 @@ class Controller:
         self.d33.initY = 3
 
         self.dun = Dungeon()  #현재 던전
-        self.mon = Unit()  #현재 몬스터
+        self.mon = Monster()  #현재 몬스터
 
     # game start
     def start(self, app):
@@ -184,9 +184,10 @@ class Controller:
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current=100
-            self.mon.mp_current=100
-            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+            self.mon.name = self.dun.monster[0][0]
+            self.mon.hp = self.dun.monster[0][1]
+            self.mon.atk = self.dun.monster[0][2]
+            self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x-1][y] == 3:   # 이미 깬 길
             self.player.flag = True
@@ -211,10 +212,8 @@ class Controller:
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current=100
-            self.mon.mp_current=100
+            self.mon.hp=100
             self.UI.screen_dungeon_boss(self.dun.boss)
-
 
     # move button_2 event
     def event_moveButton2(self):
@@ -237,9 +236,9 @@ class Controller:
             self.dun.map[x][y-1] = 2
             self.player.y = y - 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current = 100
-            self.mon.mp_current = 100
-            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+            self.mon.name = self.dun.monster[0][0]
+            self.mon.hp = self.dun.monster[0][1]
+            self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x][y-1] == 3:  # 이미 깬 길
             self.player.flag = True
@@ -264,8 +263,7 @@ class Controller:
             self.dun.map[x][y-1] = 2
             self.player.y = y - 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current = 100
-            self.mon.mp_current = 100
+            self.mon.hp = 100
             self.UI.screen_dungeon_boss(self.dun.boss)
 
     # move button_3 event
@@ -289,9 +287,9 @@ class Controller:
             self.dun.map[x][y + 1] = 2
             self.player.y = y + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current = 100
-            self.mon.mp_current = 100
-            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+            self.mon.name = self.dun.monster[0][0]
+            self.mon.hp = self.dun.monster[0][1]
+            self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x][y + 1] == 3:  # 이미 깬 길
             self.player.flag = True
@@ -316,8 +314,7 @@ class Controller:
             self.dun.map[x][y + 1] = 2
             self.player.y = y + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current = 100
-            self.mon.mp_current = 100
+            self.mon.hp = 100
             self.UI.screen_dungeon_boss(self.dun.boss)
 
     # move button_4 event
@@ -341,9 +338,9 @@ class Controller:
             self.dun.map[x + 1][y] = 2
             self.player.x = x + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current = 100
-            self.mon.mp_current = 100
-            self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
+            self.mon.name = self.dun.monster[0][0]
+            self.mon.hp = self.dun.monster[0][1]
+            self.UI.screen_dungeon_monster(self.mon.name, self.mon.hp)
 
         if self.dun.map[x + 1][y] == 3:  # 이미 깬 길
             self.player.flag = True
@@ -368,8 +365,7 @@ class Controller:
             self.dun.map[x + 1][y] = 2
             self.player.x = x + 1
             self.UI.map_draw(self.dun.map)
-            self.mon.hp_current = 100
-            self.mon.mp_current = 100
+            self.mon.hp = 100
             self.UI.screen_dungeon_boss(self.dun.boss)
 
 
@@ -426,15 +422,19 @@ class Controller:
             self.UI.screen_dungeon_start()
         elif ab1.text() == "공격":
             if "몬스터" in self.player.enemyType:
-                self.mon.hp_current -= self.attack(10)
-                self.UI.screen_dungeon_monster(self.mon.hp_current, self.mon.mp_current)
-                if self.mon.hp_current <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
-                    self.player.flag=True
+                self.mon.hp -= self.attack(self.player.str)
+                self.player.hp_current -= self.attack(self.mon.atk)
+                self.UI.screen_dungeon_monster_attack(self.mon.name, self.mon.hp,self.mon.atk)
+                self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
+                                      self.player.hp_current, self.player.mp_max, self.player.mp_current,
+                                      self.player.gold)
+                if self.mon.hp <= 0:    # 몬스터의 체력이 0 이하이면 이동 화면
+                    self.player.flag = True
                     self.UI.screen_dungeon_move(self.dun.clear)
             elif "보스" in self.player.enemyType:
-                self.mon.hp_current -= self.attack(10)
-                self.UI.screen_dungeon_boss_battle(self.mon.hp_current, self.mon.mp_current)
-                if self.mon.hp_current <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
+                self.mon.hp -= self.attack(10)
+                self.UI.screen_dungeon_boss_battle(self.mon.name, self.mon.hp)
+                if self.mon.hp <= 0:  # 몬스터의 체력이 0 이하이면 이동 화면
                     self.dun.clear = True
                     self.player.flag = True
                     self.UI.screen_dungeon_clear()
@@ -457,6 +457,9 @@ class Controller:
                 self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
                                       self.player.hp_current, self.player.mp_max, self.player.mp_current,
                                       self.player.gold)
+        elif ab1.text() == "npc1":
+            if self.player.quest_cnt >= 0:
+                self.UI.text_load("npc1_1.txt")
 
 
 

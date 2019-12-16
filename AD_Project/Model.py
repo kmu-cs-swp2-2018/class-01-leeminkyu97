@@ -22,7 +22,15 @@ class Unit:
         self.x = 0  # 던전에서의 플레이어의 현재 위치 (맵 그리기 등 이동에 필요)
         self.y = 0
         self.flag = False   # True일때만 이동가능하게해서 전투중에 이동 불가
-        #self.quest_flag = False
+
+        self.quest_cnt = 0
+
+
+class Monster:
+    def __init__(self):
+        self.name = ""
+        self.hp = 0
+        self.atk = 0
 
 
 class Village:

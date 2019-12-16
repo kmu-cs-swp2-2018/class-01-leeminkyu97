@@ -138,6 +138,9 @@ class MainUI(QWidget):
     def text_end(self):
         if self.current_text == "Prolog.txt":
             self.screen_class()
+        elif self.current_text == "npc1_1.txt":
+            self.questWindow.setText("1번 퀘스트")
+
         elif self.current_text == "Ending.txt":
             self.screen_main()
 
@@ -265,11 +268,17 @@ class MainUI(QWidget):
         self.button_setText("아이템1", "아이템2", "아이템3", "전투")
 
     # 던전 몬스터
-    def screen_dungeon_monster(self,hp,mp):
+    def screen_dungeon_monster(self,name,hp):
         self.placeWindow.setText("던전1-1")
-        self.gameWindow.setText("hp: " + str(hp))
+        self.gameWindow.setText(name + "의 hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("공격", "스킬", "아이템", "탈출")
+
+    # 던전 몬스터 공격
+    def screen_dungeon_monster_attack(self, name, hp, dmg):
+        self.gameWindow.append("\n")
+        self.gameWindow.append(str(dmg) + "의 데미지를 주었다!!")
+        self.gameWindow.append(name + "의 hp: " + str(hp))
 
     # 던전 보물상자
     def screen_dungeon_box(self):
@@ -289,7 +298,7 @@ class MainUI(QWidget):
         self.button_setText("","","싸우자","탈출")
 
     #던전 보스 배틀
-    def screen_dungeon_boss_battle(self, hp, mp):
+    def screen_dungeon_boss_battle(self, hp):
         self.placeWindow.setText("던전1-1 보스")
         self.gameWindow.setText("hp: " + str(hp))
         self.gameWindow.setAlignment(Qt.AlignCenter)
