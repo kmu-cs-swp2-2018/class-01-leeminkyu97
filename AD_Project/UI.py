@@ -208,6 +208,14 @@ class MainUI(QWidget):
         self.mapWindow.setFontPointSize(12)
         self.mapWindow.setText(tmp)
 
+    # gameover
+    def gameover(self):
+        self.gameWindow.setText("죽었습니다")
+        self.placeWindow.clear()
+        self.mapWindow.clear()
+        self.playerWindow.clear()
+        self.button_setText("","","","메인으로")
+
     # 유저 상태창
     def status_player(self, level, unit_class, hp_max, hp_current, mp_max, mp_current, gold):
         self.playerWindow.setText(unit_class + "  레벨 : " + str(level) + "  골드  : " + str(gold))
@@ -243,6 +251,10 @@ class MainUI(QWidget):
         self.gameWindow.setText("플레이어의 직업을 선택해주세요")
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText("직업1", "직업2", "직업3", "뒤로")
+
+    # 마을 이동 불가
+    def screen_village_cant(self):
+        self.gameWindow.append("아직 갈 수 없는 마을입니다")
 
     # 마을 광장
     def screen_village_square(self, village_name):
@@ -285,6 +297,14 @@ class MainUI(QWidget):
         self.gameWindow.setAlignment(Qt.AlignCenter)
         self.button_setText(villageList[0], villageList[1], "", "뒤로")
 
+    # NPC 레벨 부족
+    def npc_cant(self, level):
+        self.gameWindow.append("아직 나와 대화할 때가 아니네 " + str(level) + "은 찍고 오게나")
+
+    # NPC 퀘스트 수락
+    def npc_over(self):
+        self.gameWindow.append("저번에 도와줘서 고마웠네")
+
     # 퀘스트 수락
     def screen_quest(self):
         self.gameWindow.setText("퀘스트를 받았다!")
@@ -295,6 +315,10 @@ class MainUI(QWidget):
         self.gameWindow.setText("퀘스트를 완료했다!")
         self.questWindow.clear()
         self.button_setText("","","","뒤로")
+
+    # 던전 입장 불가
+    def screen_dungeon_cant(self):
+        self.gameWindow.append("던전에 해당하는 퀘스트를 받고 오시오")
 
     # 던전 입장
     def screen_dungeon_start(self):

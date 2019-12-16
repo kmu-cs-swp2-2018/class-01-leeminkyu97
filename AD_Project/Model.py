@@ -20,12 +20,11 @@ class Unit:
         self.place = ""     # 현재 위치 기억해서 placeWindow에 사용
         self.before = ""    # 이전 위치 기억해서 뒤로, 탈출에 사용
 
+        self.dungeon_enter = [0,0,0,0,0,0,0,0,0]
         self.enemyType = ""
         self.x = 0  # 던전에서의 플레이어의 현재 위치 (맵 그리기 등 이동에 필요)
         self.y = 0
         self.flag = False   # True일때만 이동가능하게해서 전투중에 이동 불가
-
-        self.quest_cnt = 0
 
 
 class Monster:
