@@ -30,19 +30,19 @@ class Controller:
         self.v1.name="숲속 피난민촌"
         self.v1.linked_vil=["도심속 지하벙커도시", "군사기지"]
         self.v1.linked_dun=["형광색 늪지대","쓰레기강","역동적인 숲"]
-        self.v1.npc = ["npc1", "npc2", "npc3"]
+        self.v1.npc = ["외팔이 아저씨", "땡중 삼장", "송이장"]
 
         self.v2 = Village()
         self.v2.name="도심속 지하벙커도시"
         self.v2.linked_vil = ["숲속 피난민촌", "군사기지"]
         self.v2.linked_dun = ["악마들의 교회", "음침한 병원", "폐쇄된 대형마트"]
-        self.v2.npc = ["npc4", "npc5", "npc6"]
+        self.v2.npc = ["한목사", "병원앞의 꼬마", "마트앞 시위대"]
 
         self.v3 = Village()
         self.v3.name="군사기지"
         self.v3.linked_vil = ["숲속 피난민촌", "도심속 지하벙커도시"]
         self.v3.linked_dun = ["대형 군용막사", "사령관실", "군병원"]
-        self.v3.npc = ["npc7", "npc8", "npc9"]
+        self.v3.npc = ["탈영병", "삐까뻔쩍한 건물앞 보초", "생체실험 총책임자"]
 
         # 이름, hp, dmg, gold
 
@@ -140,29 +140,29 @@ class Controller:
     # level up
     def levelup(self):
         if self.player.unit_class == "나무꾼":
-            self.player.hp_max += 100
-            self.player.hp_current += 100
-            self.player.mp_max += 100
-            self.player.mp_current += 100
-            self.player.str += 10
-            self.player.dex += 1
+            self.player.hp_max += 80
+            self.player.hp_current = self.player.hp_max
+            self.player.mp_max += 20
+            self.player.mp_current = self.player.mp_max
+            self.player.str += 4
+            self.player.dex += 2
             self.player.int += 1
         elif self.player.unit_class == "저격수":
-            self.player.hp_max += 100
-            self.player.hp_current += 100
-            self.player.mp_max += 100
-            self.player.mp_current += 100
-            self.player.str += 10
-            self.player.dex += 1
+            self.player.hp_max += 60
+            self.player.hp_current = self.player.hp_max
+            self.player.mp_max += 40
+            self.player.mp_current = self.player.mp_max
+            self.player.str += 2
+            self.player.dex += 4
             self.player.int += 1
         elif self.player.unit_class == "고고학자":
-            self.player.hp_max += 100
-            self.player.hp_current += 100
-            self.player.mp_max += 100
-            self.player.mp_current += 100
-            self.player.str += 10
-            self.player.dex += 1
-            self.player.int += 1
+            self.player.hp_max += 30
+            self.player.hp_current = self.player.hp_max
+            self.player.mp_max += 70
+            self.player.mp_current = self.player.mp_max
+            self.player.str += 1
+            self.player.dex += 2
+            self.player.int += 4
 
     def battle(self, dmgToMon, dmgToPly):
         self.mon.hp -= dmgToMon
@@ -185,46 +185,47 @@ class Controller:
 
     # attack
     def attack(self, str):
-        damage = random.randrange(str-1,str+4)
+        damage = random.randint(str-1,str+4)
         return damage
 
     def attackByMon(self, str):
-        return 1
+        damage = random.randint(str-8, str-4)
+        return damage
 
     def skill_11(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(str, str+dex+int)
         return damage
 
     def skill_12(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(str, str+dex+int)
         return damage
 
     def skill_13(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(str, str+dex+int)
         return damage
 
     def skill_21(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(dex, str+dex+int)
         return damage
 
     def skill_22(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(dex, str+dex+int)
         return damage
 
     def skill_23(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(dex, str+dex+int)
         return damage
 
     def skill_31(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(int, str+dex+int)
         return damage
 
     def skill_32(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(int, str+dex+int)
         return damage
 
     def skill_33(self,str,dex,int):
-        damage = str+dex+int
+        damage = random.randint(int, str+dex+int)
         return damage
 
     # 직업 1
@@ -580,7 +581,7 @@ class Controller:
                     self.player.hp_current += 20
                 else:
                     self.player.hp_current = self.player.hp_max
-        elif ab1.text() == "npc1":
+        elif ab1.text() == "외팔이 아저씨":
             if self.player.level == 1:
                 self.player.dungeon_enter[0] = 1
                 self.UI.text_load("npc1_1.txt")
@@ -592,7 +593,7 @@ class Controller:
                 self.UI.npc_cant(1)
             else:
                 self.UI.npc_over()
-        elif ab1.text() == "npc4":
+        elif ab1.text() == "한목사":
             if self.player.level == 7:
                 self.player.dungeon_enter[3] = 1
                 self.UI.text_load("npc4_1.txt")
@@ -604,7 +605,7 @@ class Controller:
                 self.UI.npc_cant(7)
             else:
                 self.UI.npc_over()
-        elif ab1.text() == "npc7":
+        elif ab1.text() == "탈영병":
             if self.player.level == 13:
                 self.player.dungeon_enter[6] = 1
                 self.UI.text_load("npc7_1.txt")
@@ -723,7 +724,7 @@ class Controller:
         elif ab2.text() == "저격수":
             self.job2()
             self.UI.screen_village_square(self.player.place)
-        elif ab2.text() == "npc2":
+        elif ab2.text() == "땡중 삼장":
             if self.player.level == 3:
                 self.player.dungeon_enter[1] = 1
                 self.UI.text_load("npc2_1.txt")
@@ -735,7 +736,7 @@ class Controller:
                 self.UI.npc_cant(3)
             else:
                 self.UI.npc_over()
-        elif ab2.text() == "npc5":
+        elif ab2.text() == "병원앞의 꼬마":
             if self.player.level == 9:
                 self.player.dungeon_enter[4] = 1
                 self.UI.text_load("npc5_1.txt")
@@ -747,7 +748,7 @@ class Controller:
                 self.UI.npc_cant(9)
             else:
                 self.UI.npc_over()
-        elif ab2.text() == "npc8":
+        elif ab2.text() == "삐까뻔쩍한 건물앞 보초":
             if self.player.level == 15:
                 self.player.dungeon_enter[7] = 1
                 self.UI.text_load("npc8_1.txt")
@@ -760,21 +761,21 @@ class Controller:
             else:
                 self.UI.npc_over()
         elif ab2.text() == "믿는도끼로 발등찍기":
-            if self.player.mp_current < 10:
+            if self.player.mp_current < 15:
                 return
-            self.player.mp_current -= 10 #임의 지정
+            self.player.mp_current -= 15 #임의 지정
             self.battle(self.skill_12(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab2.text() == "넛 크래커":
-            if self.player.mp_current < 10:
+            if self.player.mp_current < 15:
                 return
-            self.player.mp_current -= 10  # 임의 지정
+            self.player.mp_current -= 15  # 임의 지정
             self.battle(self.skill_22(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab2.text() == "투탕카멘의 저주":
-            if self.player.mp_current < 10:
+            if self.player.mp_current < 15:
                 return
-            self.player.mp_current -= 10  # 임의 지정
+            self.player.mp_current -= 15  # 임의 지정
             self.battle(self.skill_32(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
 
@@ -846,7 +847,7 @@ class Controller:
             self.UI.screen_village_square(self.player.place)
         elif ab3.text() == "아이템":
             self.UI.screen_dungeon_item(self.player.item)
-        elif ab3.text() == "npc3":
+        elif ab3.text() == "송이장":
             if self.player.level == 4:
                 self.player.dungeon_enter[2] = 1
                 self.UI.text_load("npc3_1.txt")
@@ -858,7 +859,7 @@ class Controller:
                 self.UI.npc_cant(4)
             else:
                 self.UI.npc_over()
-        elif ab3.text() == "npc6":
+        elif ab3.text() == "마트앞 시위대":
             if self.player.level == 11:
                 self.player.dungeon_enter[5] = 1
                 self.UI.text_load("npc6_1.txt")
@@ -870,7 +871,7 @@ class Controller:
                 self.UI.npc_cant(11)
             else:
                 self.UI.npc_over()
-        elif ab3.text() == "npc9":
+        elif ab3.text() == "생체실험 총책임자":
             if self.player.level == 17:
                 self.player.dungeon_enter[8] = 1
                 self.UI.text_load("npc9_1.txt")
@@ -883,21 +884,21 @@ class Controller:
             else:
                 self.UI.npc_over()
         elif ab3.text() == "도끼 던지기":
-            if self.player.mp_current < 10:
+            if self.player.mp_current < 20:
                 return
-            self.player.mp_current -= 10 #임의 지정
+            self.player.mp_current -= 20 #임의 지정
             self.battle(self.skill_13(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab3.text() == "헤드샷":
-            if self.player.mp_current < 10:
+            if self.player.mp_current < 20:
                 return
-            self.player.mp_current -= 10  # 임의 지정
+            self.player.mp_current -= 20  # 임의 지정
             self.battle(self.skill_23(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         elif ab3.text() == "마야인의 지구종말":
-            if self.player.mp_current < 10:
+            if self.player.mp_current < 20:
                 return
-            self.player.mp_current -= 10  # 임의 지정
+            self.player.mp_current -= 20  # 임의 지정
             self.battle(self.skill_33(self.player.str, self.player.dex, self.player.int),
                         self.attackByMon(self.mon.atk))
         self.UI.status_player(self.player.level, self.player.unit_class, self.player.hp_max,
