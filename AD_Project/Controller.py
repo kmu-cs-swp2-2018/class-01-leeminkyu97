@@ -23,6 +23,8 @@ class Controller:
         self.UI.actionButton_3.clicked.connect(self.event_actionButton3)
         self.UI.actionButton_4.clicked.connect(self.event_actionButton4)
 
+        self.exp_list = [10,20,30,40,50]
+
         self.player = Unit()
         self.player.place="메인 화면"
 
@@ -211,7 +213,7 @@ class Controller:
             self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x-1][y] == 4:   # 보물상자
-            self.player.flag = True
+            self.player.flag = False
             self.dun.map[x][y] = 3
             self.dun.map[x-1][y] = 2
             self.player.x = x-1
@@ -230,6 +232,14 @@ class Controller:
             self.mon.atk = self.dun.boss[2]
             self.mon.gold = self.dun.boss[3]
             self.UI.screen_dungeon_boss(self.mon.name)
+
+        if self.dun.map[x-1][y] == 6:   # 보물상자
+            self.player.flag = True
+            self.dun.map[x][y] = 3
+            self.dun.map[x-1][y] = 2
+            self.player.x = x-1
+            self.UI.map_draw(self.dun.map)
+            self.UI.screen_dungeon_box()
 
     # move button_2 event
     def event_moveButton2(self):
@@ -269,7 +279,7 @@ class Controller:
             self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x][y-1] == 4:  # 보물상자
-            self.player.flag = True
+            self.player.flag = False
             self.dun.map[x][y] = 3
             self.dun.map[x][y-1] = 2
             self.player.y = y - 1
@@ -327,7 +337,7 @@ class Controller:
             self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x][y + 1] == 4:  # 보물상자
-            self.player.flag = True
+            self.player.flag = False
             self.dun.map[x][y] = 3
             self.dun.map[x][y + 1] = 2
             self.player.y = y + 1
@@ -385,7 +395,7 @@ class Controller:
             self.UI.screen_dungeon_move(self.dun.clear)
 
         if self.dun.map[x + 1][y] == 4:  # 보물상자
-            self.player.flag = True
+            self.player.flag = False
             self.dun.map[x][y] = 3
             self.dun.map[x + 1][y] = 2
             self.player.x = x + 1

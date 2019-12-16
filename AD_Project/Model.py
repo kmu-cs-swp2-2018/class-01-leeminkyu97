@@ -10,7 +10,10 @@ class Unit:
         self.mp_max = 0
         self.mp_current = 0
         self.str = 1
+        self.dex = 1
+        self.int = 1
         self.skill = []
+        self.exp = 0
 
         self.gold = 0
         self.item = [0,0,0]
@@ -22,7 +25,7 @@ class Unit:
         self.x = 0  # 던전에서의 플레이어의 현재 위치 (맵 그리기 등 이동에 필요)
         self.y = 0
         self.flag = False   # True일때만 이동가능하게해서 전투중에 이동 불가
-        self.box_flag = False # false-보물상자, true-몬스터
+        #self.box_flag = False # false-보물상자, true-몬스터
 
         self.quest_cnt = 0
 
